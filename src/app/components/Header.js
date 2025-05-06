@@ -1,35 +1,62 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(false);
+    const [mounted, setMounted]   = useState(false);
     const headerRef = useRef(null);
+    const timerRef = useRef(null);
+    const { theme, systemTheme, setTheme } = useTheme();
+    
+    useEffect(() => 
+        setMounted(true), 
+    []);
+    
+    // const currentTheme = theme === "system" ? systemTheme : theme;
+
+    const modes = ["system", "light", "dark"];
+    const toggleTheme = () => {
+        const currentIndex = modes.indexOf(theme);
+        const nextIndex    = (currentIndex + 1) % modes.length;
+        setTheme(modes[nextIndex]);
+    };
+
+    const icon = (() => {
+        if (theme === "system") return "🌓";  // automatyczny
+        if (theme === "light")  return "☀️";  // jasny
+        return "🌙";                          // ciemny
+    })();
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsHidden(true);
-            setIsOpen(false);
-        }, 6000);
-        
-        const handleClickOutside = (e) => {
+        const handleClickOutside = e => {
             if (headerRef.current && !headerRef.current.contains(e.target)) {
                 setIsHidden(true);
                 setIsOpen(false);
             }
         };
-        document.addEventListener("click", handleClickOutside);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            clearTimeout(timer);
-            document.removeEventListener("click", handleClickOutside);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        if (!isHidden) {
+            timerRef.current = setTimeout(() => {
+                setIsHidden(true);
+                setIsOpen(false);
+            }, 10000);
+        }
+        return () => clearTimeout(timerRef.current);
+    }, [isHidden]);
     
 
     const toggleMenu = () => {
         setIsOpen((o) => !o);
-        setIsHidden(false);        // przy ponownym otwarciu przywracamy header
+        if (isHidden) setIsHidden(false);
     };
     
     const handleNavLinkClick = () => {
@@ -57,27 +84,34 @@ export default function Header() {
             </button>
             {/* nawigacja */}
             <nav className={`nav ${isOpen ? "is-open" : ""}`}>
-                    <Link 
-                        href="/" 
-                        className="nav__link" 
-                        onClick={handleNavLinkClick}
-                    >
-                        Home
-                    </Link>
-                    <Link 
-                        href="/projects" 
-                        className="nav__link" 
-                        onClick={handleNavLinkClick}
-                    >
-                        Projects
-                    </Link>
-                    <Link 
-                        href="/contact" 
-                        className="nav__link"
-                        onClick={handleNavLinkClick}
-                    >
-                        Contact
-                    </Link>
+                <Link 
+                    href="/" 
+                    className="nav__link" 
+                    onClick={handleNavLinkClick}
+                >
+                    Home
+                </Link>
+                <Link 
+                    href="/projects" 
+                    className="nav__link" 
+                    onClick={handleNavLinkClick}
+                >
+                    Projects
+                </Link>
+                <Link 
+                    href="/contact" 
+                    className="nav__link"
+                    onClick={handleNavLinkClick}
+                >
+                    Contact
+                </Link>
+                <button
+                    className="theme-toggle"
+                    onClick={toggleTheme}
+                    aria-label="Toggle theme"
+                >
+                    {mounted ? icon : null}
+                </button>
             </nav>
         </header>
     )
