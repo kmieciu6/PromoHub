@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
+import { MdOutlineBrightnessAuto, MdLightMode, MdDarkMode } from "react-icons/md";
 import Link from "next/link";
 
 export default function Header() {
@@ -15,20 +16,17 @@ export default function Header() {
         setMounted(true), 
     []);
     
-    // const currentTheme = theme === "system" ? systemTheme : theme;
-
     const modes = ["system", "light", "dark"];
     const toggleTheme = () => {
-        const currentIndex = modes.indexOf(theme);
-        const nextIndex    = (currentIndex + 1) % modes.length;
-        setTheme(modes[nextIndex]);
+        const idx = (modes.indexOf(theme) + 1) % modes.length;
+        setTheme(modes[idx]);
     };
 
-    const icon = (() => {
-        if (theme === "system") return "🌓";  // automatyczny
-        if (theme === "light")  return "☀️";  // jasny
-        return "🌙";                          // ciemny
-    })();
+    const Icon = {
+        system: MdOutlineBrightnessAuto,   // półksiężyc dla „system”
+        light:  MdLightMode, // słońce
+        dark:   MdDarkMode,          // księżyc
+      }[theme];
 
     useEffect(() => {
         const handleClickOutside = e => {
@@ -110,7 +108,7 @@ export default function Header() {
                     onClick={toggleTheme}
                     aria-label="Toggle theme"
                 >
-                    {mounted ? icon : null}
+                    {mounted && <Icon/>}
                 </button>
             </nav>
         </header>

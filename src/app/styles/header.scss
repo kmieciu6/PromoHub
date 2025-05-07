@@ -1,17 +1,57 @@
+.dark {
+    .header {
+        background: $header-dark-background-color;
+        color: $main-dark-color;
+        
+        span {
+            background: $main-dark-color;
+        }
+    }
+}
+
+.light {
+    .header {
+        background: $header-light-background-color;
+        color: $main-light-color;
+        
+        span {
+            background: $main-light-color;
+        }
+    }
+}
+
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 1rem 2rem;
-    background-color: #ffffff;
     position: relative;
     z-index: 1000;
+    
+    @include mobile {
+        justify-content: space-between;
+    }
   
     .nav-logo {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         font-weight: bold;
-        color: #333;
         text-decoration: none;
+        transition: 0.3s, transform 0.2s;
+
+        @include desktop {
+            
+            &:hover {
+                transform: scale(1.1);
+                color: $accent-color;
+            }
+        }
+
+        @include mobile-tablet {
+
+            &:active {
+                transform: scale(1.1);
+            }
+        }
     }
   
     .hamburger {
@@ -28,7 +68,6 @@
         span {
             display: block;
             height: 3px;
-            background-color: #333;
             border-radius: 1px;
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
@@ -53,7 +92,7 @@
         top: 100%;
         left: 0;
         width: 100%;
-        background-color: #fff;
+        background: inherit;
     
         &.is-open {
             display: flex;
@@ -62,16 +101,60 @@
         .nav__link {
             padding: 0.75rem 1rem;
             text-decoration: none;
-            color: #333;
             font-weight: 500;
+            transition: .3s ease;
+            text-align: center;
     
-            &:hover {
-                background-color: #f2f2f2;
+            @include desktop { 
+
+                &:hover {
+                    transform: scale(1.2);
+                    color: $accent-color;
+                }
+            }
+
+            @include mobile-tablet {
+            
+                &:active {
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .theme-toggle {
+            display: flex;
+            margin-left: 1rem;
+            align-items: center;
+            justify-content: center;
+            transition: 0.5s, transform 0.2s;
+            cursor: pointer;
+
+            @include desktop {
+
+                &:hover {
+                    transform: scale(1.2);
+                    
+                    svg {
+                        color: $accent-color;
+                    }
+                }
+            }
+
+            @include mobile-tablet {
+            
+                &:active {
+                    transform: scale(1.1);
+                }
+            }
+            
+            svg {
+                width: 24px;
+                height: 24px;
             }
         }
     }
     
-    @media (min-width: 768px) {
+    @include desktop {
         .hamburger {
             display: none;
         }
