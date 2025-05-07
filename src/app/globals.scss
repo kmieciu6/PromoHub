@@ -1,16 +1,17 @@
-@import "tailwindcss";
-@import "./styles/colors.scss";
-@import "./styles/fonts.scss";
-@import "./styles/mixins.scss"; 
-@import "./styles/header.scss";
-@import "./styles/home_page.scss";
-@import "./styles/projects_page.scss";
-@import "./styles/contact_page.scss";
-@import "./styles/footer.scss";
-/* @import "./styles/"; */
+@use "tailwindcss";
+@use "./styles/index";
+@use "./styles/mixins";
 
 body {
-  font-family: $main-font;
+  font-family: index.$main-font;
+}
+
+main {
+  margin-top: 73px;
+
+  @include mixins.desktop {
+    margin-top: 88px;
+  }
 }
 
 .dark {

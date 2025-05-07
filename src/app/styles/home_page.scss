@@ -1,0 +1,14 @@
+@use "colors" as *;
+@use "mixins" as *;
+
+.home-page {
+    width: 100%;
+    height: 93vh;
+    background-image: url("../assets/opening.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

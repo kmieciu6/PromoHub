@@ -1,7 +1,12 @@
+"use client"
+import { useTranslation } from '../hooks/useTranslation';
+
 export default function ContactPage() {
+    const { t } = useTranslation('common')
+
     return (
         <div>
-            <h1>Contact</h1>
+            <h1>{t('contact')}</h1>
         </div>
     );
 }

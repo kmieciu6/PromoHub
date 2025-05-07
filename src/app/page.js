@@ -1,7 +1,12 @@
+"use client"
+import { useTranslation } from './hooks/useTranslation';
+
 export default function HomePage() {
+    const { t } = useTranslation('common')
+
     return (
-        <div>
-            <h1>Witamy w PromoHub!</h1>
-        </div>
+        <section className='home-page'>
+            <h1>{t('welcome')}</h1>
+        </section>
     );
 }

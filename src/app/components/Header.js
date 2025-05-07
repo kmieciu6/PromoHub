@@ -2,7 +2,9 @@
 import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import { MdOutlineBrightnessAuto, MdLightMode, MdDarkMode } from "react-icons/md";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import LanguageDropdown from "./LanguageDropdown";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +13,9 @@ export default function Header() {
     const headerRef = useRef(null);
     const timerRef = useRef(null);
     const { theme, systemTheme, setTheme } = useTheme();
-    
+    const router = useRouter();
+    const pathname = usePathname();
+     
     useEffect(() => 
         setMounted(true), 
     []);
@@ -22,11 +26,14 @@ export default function Header() {
         setTheme(modes[idx]);
     };
 
-    const Icon = {
-        system: MdOutlineBrightnessAuto,   // półksiężyc dla „system”
-        light:  MdLightMode, // słońce
-        dark:   MdDarkMode,          // księżyc
-      }[theme];
+    let Icon = null;
+    if (mounted) {
+        Icon = {
+            system: MdOutlineBrightnessAuto,
+            light:  MdLightMode,
+            dark:   MdDarkMode,
+        }[theme];
+    }
 
     useEffect(() => {
         const handleClickOutside = e => {
@@ -57,60 +64,69 @@ export default function Header() {
         if (isHidden) setIsHidden(false);
     };
     
-    const handleNavLinkClick = () => {
+    const handleNavLinkClick = (href) => {
         setIsOpen(false);
         setIsHidden(true);
+
+        if (pathname !== href) {
+            window.scrollTo({top: 0, behavior: "smooth" });
+        } else {
+            router.push(href);
+        }
     };
 
     return (
         <header ref={headerRef} className={`header ${isHidden ? "hidden" : ""}`}>
-            <Link 
-                href="/" 
-                className="nav-logo"
-                onClick={handleNavLinkClick}    
-            >
-                PromoHub
-            </Link>
-            <button
-                className={`hamburger ${isOpen ? "is-open" : ""}`}
-                onClick={toggleMenu}
-                aria-label="Toggle navigation"
-                >
-                <span />
-                <span />
-                <span />
-            </button>
-            {/* nawigacja */}
-            <nav className={`nav ${isOpen ? "is-open" : ""}`}>
+            <div className="header-container">
                 <Link 
                     href="/" 
-                    className="nav__link" 
-                    onClick={handleNavLinkClick}
+                    className="nav-logo"
+                    onClick={handleNavLinkClick}    
                 >
-                    Home
-                </Link>
-                <Link 
-                    href="/projects" 
-                    className="nav__link" 
-                    onClick={handleNavLinkClick}
-                >
-                    Projects
-                </Link>
-                <Link 
-                    href="/contact" 
-                    className="nav__link"
-                    onClick={handleNavLinkClick}
-                >
-                    Contact
+                    PromoHub
                 </Link>
                 <button
-                    className="theme-toggle"
-                    onClick={toggleTheme}
-                    aria-label="Toggle theme"
-                >
-                    {mounted && <Icon/>}
+                    className={`hamburger ${isOpen ? "is-open" : ""}`}
+                    onClick={toggleMenu}
+                    aria-label="Toggle navigation"
+                    >
+                    <span />
+                    <span />
+                    <span />
                 </button>
-            </nav>
+                {/* nawigacja */}
+                <nav className={`nav ${isOpen ? "is-open" : ""}`}>
+                    <Link 
+                        href="/" 
+                        className="nav-link" 
+                        onClick={handleNavLinkClick}
+                    >
+                        Home
+                    </Link>
+                    <Link 
+                        href="/projects" 
+                        className="nav-link" 
+                        onClick={handleNavLinkClick}
+                    >
+                        Projects
+                    </Link>
+                    <Link 
+                        href="/contact" 
+                        className="nav-link"
+                        onClick={handleNavLinkClick}
+                    >
+                        Contact
+                    </Link>
+                    <LanguageDropdown/>
+                    <button
+                        className="theme-toggle"
+                        onClick={toggleTheme}
+                        aria-label="Toggle theme"
+                    >
+                        {mounted && Icon && <Icon/>}
+                    </button>
+                </nav>
+            </div>
         </header>
     )
 }

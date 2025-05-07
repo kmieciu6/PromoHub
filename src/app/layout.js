@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "next-themes";
 import "./globals.scss";
+import Loader from "./components/Loader";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Loader />
           <Header/>
           <main>
             {children}
