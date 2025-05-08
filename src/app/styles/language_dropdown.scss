@@ -3,14 +3,14 @@
 
 .dark {
     .language-option {
-        background: $main-dark-background-color;
+        background: $header-dark-background-color;
         color: $main-dark-color;
     }
 }
 
 .light {
     .language-option {
-        background: $main-light-background-color;
+        background: $header-light-background-color;
         color: $main-light-color;
     }
 }
@@ -27,21 +27,25 @@
   
     .language-toggle {
         cursor: pointer;
-        transition: 0.3s;
 
-        @include desktop {
+        h5 {
+            transition: 0.3s;
 
-            &:hover {
-                transform: scale(1.2);
-                color: $accent-color;
+            @include desktop {
+
+                &:hover {
+                    transform: scale(1.2);
+                    color: $accent-color;
+                }
             }
-        }
 
-        @include mobile-tablet {
+            @include mobile-tablet {
+                transition: 0.1s;
 
-            &.active {
-                transform: scale(1.1);
-                color: $accent-color;
+                &:active {
+                    transform: scale(1.1);
+                    color: $accent-color;
+                }
             }
         }
     }
@@ -66,25 +70,24 @@
                 padding: 1rem;
                 width: 100%;
                 cursor: pointer;
-                transition: 0.3s;
 
-                @include mobile-tablet {
-                    background: inherit;
-                }
+                h5 {
+                    transition: 0.3s;
 
-                @include desktop {
+                    @include desktop {
 
-                    &:hover {
-                        // transform: scale(1.2);
-                        color: $accent-color;
+                        &:hover {
+                            color: $accent-color;
+                        }
                     }
-                }
 
-                @include mobile-tablet {
-
-                    &.active {
-                        // transform: scale(1.1);
-                        color: $accent-color;
+                    @include mobile-tablet {
+                        transition: 0.1s;
+                        background: inherit;
+                        
+                        &:active {
+                            color: $accent-color;
+                        }
                     }
                 }
             }

@@ -48,7 +48,7 @@ export default function LanguageDropdown({ forceClose }) {
     return (
         <div className="language-dropdown" ref={dropdownRef}>
             <button className="language-toggle" onClick={() => setOpen(!open)}>
-                {current?.label || 'EN'} ▼
+                <h5>{current?.label || 'EN'} ▼ </h5>
             </button>
 
             {open && (
@@ -59,7 +59,7 @@ export default function LanguageDropdown({ forceClose }) {
                             className={`language-option`}
                             onClick={() => handleChange(code)}
                         >
-                            {label}
+                            <h5>{label}</h5>
                         </button>
                         </li>
                     ))}

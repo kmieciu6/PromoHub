@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import en_common from '../../../public/local/en/common.json';
 import pl_common from '../../../public/local/pl/common.json';

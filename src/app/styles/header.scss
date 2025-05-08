@@ -11,7 +11,7 @@
         }
 
         .nav {
-            background: $header-dark-background-color;
+            background: rgba($header-dark-background-color, 0.7);
         }
     }
 }
@@ -26,13 +26,14 @@
         }
 
         .nav {
-            background: $header-light-background-color;
+            background: rgba($header-light-background-color, 0.7);
         }
     }
 }
 
 .header {
     width: 100%;
+    height: 60px;
     position: fixed;
     top: 0;
     left: 0;
@@ -43,6 +44,10 @@
     justify-content: center;
     align-items: center;
     overflow: visible;
+
+    @include desktop {
+        height: 80px;
+    }
     
     .header-container {
         width: 100%;
@@ -59,20 +64,25 @@
             font-size: 1.7rem;
             font-weight: bold;
             text-decoration: none;
-            transition: 0.3s, transform 0.2s;
+            
+            h2 {
+                transition: 0.3s, transform 0.2s;
 
-            @include desktop {
+                @include desktop {
                 
-                &:hover {
-                    transform: scale(1.1);
-                    color: $accent-color;
+                    &:hover {
+                        transform: scale(1.1);
+                        color: $accent-color;
+                    }
                 }
-            }
+                
+                @include mobile-tablet {
+                    transition: 0.1s;
 
-            @include mobile-tablet {
-
-                &:active {
-                    transform: scale(1.1);
+                    &:active {
+                        transform: scale(1.1);
+                        color: $accent-color;
+                    }
                 }
             }
         }
@@ -115,7 +125,6 @@
             top: 100%;
             left: 0;
             width: 100%;
-            opacity: 0.7;
             
             &.is-open {
                 display: flex;
@@ -125,22 +134,27 @@
                 padding: 1rem 0;
                 text-decoration: none;
                 font-weight: 500;
-                transition: .3s ease;
                 text-align: center;
+
+                h5 {
+                    transition: .3s ease;
         
-                @include desktop { 
-                    margin: 0 2rem;
+                    @include desktop { 
+                        margin: 0 2rem;
 
-                    &:hover {
-                        transform: scale(1.2);
-                        color: $accent-color;
+                        &:hover {
+                            transform: scale(1.2);
+                            color: $accent-color;
+                        }
                     }
-                }
 
-                @include mobile-tablet {
-                
-                    &:active {
-                        transform: scale(1.1);
+                    @include mobile-tablet {
+                        transition: 0.1s;
+
+                        &:active {
+                            transform: scale(1.1);
+                            color: $accent-color;
+                        }
                     }
                 }
             }
@@ -149,8 +163,8 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                transition: 0.3s, transform 0.2s;
                 cursor: pointer;
+                transition: 0.3s, transform 0.2s;
                 
                 @include desktop {
                     margin-left: 1rem;
@@ -165,10 +179,12 @@
                 }
 
                 @include mobile-tablet {
+                    transition: 0.1s;
                     padding: 1rem 0;
 
                     &:active {
                         transform: scale(1.1);
+                        color: $accent-color
                     }
                 }
                 

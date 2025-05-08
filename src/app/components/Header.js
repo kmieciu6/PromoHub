@@ -5,6 +5,7 @@ import { MdOutlineBrightnessAuto, MdLightMode, MdDarkMode } from "react-icons/md
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import LanguageDropdown from "./LanguageDropdown";
+import { useTranslation } from '../hooks/useTranslation';
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,7 @@ export default function Header() {
     const { theme, systemTheme, setTheme } = useTheme();
     const router = useRouter();
     const pathname = usePathname();
+    const { t } = useTranslation('common')
      
     useEffect(() => 
         setMounted(true), 
@@ -83,7 +85,7 @@ export default function Header() {
                     className="nav-logo"
                     onClick={handleNavLinkClick}    
                 >
-                    PromoHub
+                    <h2>PromoHub</h2>
                 </Link>
                 <button
                     className={`hamburger ${isOpen ? "is-open" : ""}`}
@@ -101,21 +103,21 @@ export default function Header() {
                         className="nav-link" 
                         onClick={handleNavLinkClick}
                     >
-                        Home
+                        <h5>{t('home')}</h5>
                     </Link>
                     <Link 
                         href="/projects" 
                         className="nav-link" 
                         onClick={handleNavLinkClick}
                     >
-                        Projects
+                        <h5>{t('projects')}</h5>
                     </Link>
                     <Link 
                         href="/contact" 
                         className="nav-link"
                         onClick={handleNavLinkClick}
                     >
-                        Contact
+                        <h5>{t('contact')}</h5>
                     </Link>
                     <LanguageDropdown/>
                     <button

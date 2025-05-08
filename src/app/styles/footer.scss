@@ -1,2 +1,25 @@
 @use "colors" as *;
 @use "mixins" as *;
+
+.dark {
+    footer {
+        background: $footer-dark-color;
+    }
+}
+
+.light {
+    footer {
+        background: $footer-light-color;
+    }
+}
+
+footer {
+    width: 100%;
+
+    .footer-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}
