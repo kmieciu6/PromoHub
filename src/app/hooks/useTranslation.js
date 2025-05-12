@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import en_common from '../locales/en/common.json';
-import pl_common from '../locales/pl/common.json';
-import de_common from '../locales/de/common.json';
+import en_common from '../languages/en/common.json';
+import pl_common from '../languages/pl/common.json';
+import de_common from '../languages/de/common.json';
 
 const translations = {
     en: {
