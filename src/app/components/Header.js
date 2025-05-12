@@ -85,7 +85,7 @@ export default function Header() {
                     className="nav-logo"
                     onClick={handleNavLinkClick}    
                 >
-                    <h2>PromoHub</h2>
+                    <h2>{t('title')}</h2>
                 </Link>
                 <button
                     className={`hamburger ${isOpen ? "is-open" : ""}`}

@@ -15,11 +15,25 @@
 
 footer {
     width: 100%;
+    height: auto;
+    padding: 2rem 0;
+    
+    @include desktop {
+        padding: 5rem 0;
+    }
 
     .footer-container {
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        
+        .social_logos {
+
+            img {
+                width: 50px;
+                height: auto;
+            }
+        }
     }
 }

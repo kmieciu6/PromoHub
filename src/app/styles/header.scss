@@ -55,6 +55,7 @@
         display: flex;
         justify-content: space-between;
         max-width: 1600px;
+        margin: 0 1rem;
         
         @include desktop {
             margin: 0 5rem;
@@ -99,6 +100,7 @@
             cursor: pointer;
         
             span {
+                width: 30px;
                 display: block;
                 height: 3px;
                 border-radius: 1px;
@@ -206,10 +208,6 @@
                 flex-direction: row;
                 background: none;
                 width: auto;
-        
-                .nav__link {
-                    padding: 0 1rem;
-                }
             }
         }
     }
