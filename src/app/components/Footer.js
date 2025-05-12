@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '../hooks/useTranslation';
 import Link from "next/link";
-import Image from 'next/image';
-import photo from "../assets/opening.png";
+import photo from "../../../public/assets/opening.png";
 
 export default function Footer() {
     const [isOpen, setIsOpen] = useState(false);
