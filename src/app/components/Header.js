@@ -106,14 +106,14 @@ export default function Header() {
                         <h5>{t('home')}</h5>
                     </Link>
                     <Link 
-                        href="/projects" 
+                        href="/projects_page" 
                         className="nav-link" 
                         onClick={handleNavLinkClick}
                     >
                         <h5>{t('projects')}</h5>
                     </Link>
                     <Link 
-                        href="/contact" 
+                        href="/contact_page" 
                         className="nav-link"
                         onClick={handleNavLinkClick}
                     >
