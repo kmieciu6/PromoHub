@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from '../hooks/useTranslation';
+import useTranslation from '../hooks/useTranslation';
 
 const languages = [
     { code: 'pl', label: 'PL' },
@@ -42,7 +42,8 @@ export default function LanguageDropdown({ forceClose }) {
         
     // Zamykanie wymuszone z Headera (mobile)
     useEffect(() => {
-        if (forceClose) setOpen(false);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setOpen(false);
     }, [forceClose]);
 
     return (

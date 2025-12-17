@@ -1,24 +1,56 @@
-"use client";
-import { useEffect, useState } from "react";
+'use client';
+import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 
-export default function Loader() {
-    const [isLoading, setIsLoading] = useState(true);
+const Loader = ({ children }) => {
+    const [loading, setLoading] = useState(true);
+    const pathname = usePathname();
 
     useEffect(() => {
-        if (document.readyState === "complete") {
-            setIsLoading(false);
-        } else {
-            const handleLoad = () => setIsLoading(false);
-            window.addEventListener("load", handleLoad);
-            return () => window.removeEventListener("load", handleLoad);
-        }
-    }, []);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setLoading(true);
 
-    if (!isLoading) return null;
+        // Czekaj na załadowanie wszystkich obrazów
+        const images = Array.from(document.images);
+        let pending = images.filter(img => !img.complete).length;
+
+        if (pending === 0) {
+            setLoading(false);
+            return;
+        }
+
+        const onImgEvent = () => {
+            pending -= 1;
+            if (pending === 0) {
+                setLoading(false);
+            }
+        };
+
+        images.forEach(img => {
+            if (!img.complete) {
+                img.addEventListener('load', onImgEvent);
+                img.addEventListener('error', onImgEvent);
+            }
+        });
+
+        return () => {
+            images.forEach(img => {
+                img.removeEventListener('load', onImgEvent);
+                img.removeEventListener('error', onImgEvent);
+            });
+        };
+    }, [pathname]);
 
     return (
-        <div className="loaderWrapper">
-            <div className="loader"></div>
-        </div>
+        <>
+            {loading && (
+                <div className="overlay">
+                    <div className="loading-spinner" />
+                </div>
+            )}
+            {children}
+        </>
     );
-}
+};
+
+export default Loader;

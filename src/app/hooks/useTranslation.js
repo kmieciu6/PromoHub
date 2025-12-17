@@ -25,6 +25,7 @@ export function useTranslation(namespace = 'common') {
         const supported = ['en', 'pl', 'de'];
         const lang = supported.includes(stored) ? stored : 'en';
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLocale(lang);
         setMessages(translations[lang][namespace] || {});
     }, [namespace]);
@@ -37,10 +38,10 @@ export function useTranslation(namespace = 'common') {
         localStorage.setItem('locale', lang);
         setLocale(lang);
         setMessages(translations[lang][namespace] || {});
-        // 🔁 wymuś odświeżenie strony (prosty sposób):
         window.location.reload();
     };
-    
 
     return { t, local, changeLanguage };
 }
+
+export default useTranslation;

@@ -1,24 +1,17 @@
 "use client"
-import { useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { useTranslation } from '../hooks/useTranslation';
-import Link from "next/link";
+import {usePathname} from 'next/navigation';
+import useTranslation from '../hooks/useTranslation';
 import photo from "../../../public/assets/opening.png";
 
 export default function Footer() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isHidden, setIsHidden] = useState(false);
     const pathname = usePathname();
     const { t } = useTranslation('common')
 
-    const handleNavLinkClick = (href) => {
-        setIsOpen(false);
-        setIsHidden(true);
+    const handleNavClick = (href) => (e) => {
 
-        if (pathname !== href) {
-            window.scrollTo({top: 0, behavior: "smooth" });
-        } else {
-            router.push(href);
+        if (pathname === href) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     };
 
@@ -26,20 +19,23 @@ export default function Footer() {
         <footer>
             <div className='footer-container'>
                 <div className='nav-logo'>
-                    <Link 
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                    <a
                         href="/" 
                         className="nav-logo"
-                        onClick={handleNavLinkClick}
+                        onClick={handleNavClick("/")}
                     >
                         <h1>{t('title')}</h1>
-                    </Link>
+                    </a>
                     <p>{t('footer')}</p>
                 </div>
                 <div className='social_logos'>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={photo.src}
                         alt="linkedin_logo"
                     />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                         src={photo.src}
                         alt="facebook_logo"

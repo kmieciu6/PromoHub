@@ -1,21 +1,36 @@
 @use "colors" as *;
 @use "mixins" as *;
 
-.loaderWrapper {
+.overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    transition: opacity 0.3s ease;
 }
-  
-.loader {
+
+.dark {
+
+    .overlay {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .loading-spinner {
+        border-top: 8px solid rgba(0, 0, 0, 0);
+    }
+}
+
+.loading-spinner {
     width: 60px;
     height: 60px;
     border: 8px solid $accent-color;
-    border-top: 8px solid $grey-color;
+    border-top: 8px solid rgba(255, 255, 255, 0);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 
@@ -24,10 +39,10 @@
         height: 40px;
     }
 }
-  
+
 @keyframes spin {
 
     to {
         transform: rotate(360deg);
     }
-}  
+}

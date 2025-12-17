@@ -1,41 +1,17 @@
 "use client"
 import { useState, useEffect, useRef } from "react";
-import { useTheme } from "next-themes";
-import { MdOutlineBrightnessAuto, MdLightMode, MdDarkMode } from "react-icons/md";
-import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
+import { usePathname } from "next/navigation";
 import LanguageDropdown from "./LanguageDropdown";
-import { useTranslation } from '../hooks/useTranslation';
+import useTranslation from '../hooks/useTranslation';
+import ThemeToggle from "@/app/components/ThemeToggle";
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const [isHidden, setIsHidden] = useState(false);
-    const [mounted, setMounted]   = useState(false);
     const headerRef = useRef(null);
     const timerRef = useRef(null);
-    const { theme, systemTheme, setTheme } = useTheme();
-    const router = useRouter();
     const pathname = usePathname();
     const { t } = useTranslation('common')
-     
-    useEffect(() => 
-        setMounted(true), 
-    []);
-    
-    const modes = ["system", "light", "dark"];
-    const toggleTheme = () => {
-        const idx = (modes.indexOf(theme) + 1) % modes.length;
-        setTheme(modes[idx]);
-    };
-
-    let Icon = null;
-    if (mounted) {
-        Icon = {
-            system: MdOutlineBrightnessAuto,
-            light:  MdLightMode,
-            dark:   MdDarkMode,
-        }[theme];
-    }
 
     useEffect(() => {
         const handleClickOutside = e => {
@@ -65,28 +41,28 @@ export default function Header() {
         setIsOpen((o) => !o);
         if (isHidden) setIsHidden(false);
     };
-    
-    const handleNavLinkClick = (href) => {
+
+    const handleNavClick = (href) => (e) => {
         setIsOpen(false);
         setIsHidden(true);
 
-        if (pathname !== href) {
-            window.scrollTo({top: 0, behavior: "smooth" });
-        } else {
-            router.push(href);
+        if (pathname === href) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
     };
 
     return (
         <header ref={headerRef} className={`header ${isHidden ? "hidden" : ""}`}>
             <div className="header-container">
-                <Link 
-                    href="/" 
+                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                <a
+                    href="/"
                     className="nav-logo"
-                    onClick={handleNavLinkClick}    
+                    onClick={handleNavClick("/")}
                 >
                     <h2>{t('title')}</h2>
-                </Link>
+                </a>
                 <button
                     className={`hamburger ${isOpen ? "is-open" : ""}`}
                     onClick={toggleMenu}
@@ -96,37 +72,32 @@ export default function Header() {
                     <span />
                     <span />
                 </button>
-                {/* nawigacja */}
+
                 <nav className={`nav ${isOpen ? "is-open" : ""}`}>
-                    <Link 
-                        href="/" 
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                    <a
+                        href="/"
                         className="nav-link" 
-                        onClick={handleNavLinkClick}
+                        onClick={handleNavClick("/")}
                     >
                         <h5>{t('home')}</h5>
-                    </Link>
-                    <Link 
+                    </a>
+                    <a
                         href="/projects_page" 
-                        className="nav-link" 
-                        onClick={handleNavLinkClick}
+                        className="nav-link"
+                        onClick={handleNavClick("/projects_page")}
                     >
                         <h5>{t('projects')}</h5>
-                    </Link>
-                    <Link 
+                    </a>
+                    <a
                         href="/contact_page" 
                         className="nav-link"
-                        onClick={handleNavLinkClick}
+                        onClick={handleNavClick("/contact_page")}
                     >
                         <h5>{t('contact')}</h5>
-                    </Link>
+                    </a>
                     <LanguageDropdown/>
-                    <button
-                        className="theme-toggle"
-                        onClick={toggleTheme}
-                        aria-label="Toggle theme"
-                    >
-                        {mounted && Icon && <Icon/>}
-                    </button>
+                    <ThemeToggle/>
                 </nav>
             </div>
         </header>
