@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
 
     return (
         <section className='privacy_policy_page page'>
-            <div ref={sec1Ref} className={`opening ${isSec1Hidden ? 'hidden' : ''}`}>
+            <div ref={sec1Ref} className={`privacy_policy_container open ${isSec1Hidden ? 'hidden' : ''}`}>
                 <h1>{t('privacy_policy')}</h1>
             </div>
         </section>

@@ -81,8 +81,7 @@ const Contact = () => {
                 setError((prev) => ({
                     ...prev,
                     server:
-                        t("form_submit_error") ||
-                        "Wystąpił błąd serwera. Spróbuj ponownie później.",
+                        t("form_submit_error")
                 }));
 
                 console.error("Błąd serwera:", data?.error || res.statusText);
@@ -91,8 +90,7 @@ const Contact = () => {
             setError((prev) => ({
                 ...prev,
                 server:
-                    t("network_error") ||
-                    "Błąd połączenia z serwerem. Sprawdź internet.",
+                    t("network_error")
             }));
             console.error("Błąd sieci:", err);
         } finally {
@@ -142,7 +140,7 @@ const Contact = () => {
 
     return (
         <div className='contact'>
-            <div ref={secRef} className={`contact_container ${isSecHidden ? 'hidden' : ''}`}>
+            <div ref={secRef} className={`contact_container open ${isSecHidden ? 'hidden' : ''}`}>
                 <h1>
                     {t('contact')}
                 </h1>
@@ -262,7 +260,7 @@ const Contact = () => {
 
                     <div className="button">
                         <button type="submit" disabled={isSending}>
-                            {isSending ? t("sending") || "Wysyłanie..." : t("send")}
+                            {isSending ? t("sending")  + '...' : t("send")}
                         </button>
                     </div>
                 </form>

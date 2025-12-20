@@ -27,7 +27,7 @@ export default function Footer() {
                     >
                         <h1>{t('title')}</h1>
                     </a>
-                    <p>{t('footer')}</p>
+                    <p>{t('')}</p>
                 </div>
                 <div className='social_logos'>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
