@@ -65,17 +65,21 @@
             font-size: 1.7rem;
             font-weight: bold;
             text-decoration: none;
-            
+            transition: 0.3s, transform 0.2s;
+
             h2 {
                 transition: 0.3s, transform 0.2s;
-
+            }
                 @include desktop {
-                
+
                     &:hover {
                         transform: scale(1.1);
-                        color: $accent-color;
+
+                        h2 {
+                            color: $accent-color !important;
+                        }
                     }
-                }
+
                 
                 @include mobile-tablet {
                     transition: 0.1s;

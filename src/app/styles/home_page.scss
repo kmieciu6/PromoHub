@@ -14,13 +14,39 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
 
         @include desktop {
             height: 93vh;
         }
 
-        h1 {
+        h1, h2 {
             color: $main-dark-color;
+            text-align: center;
+        }
+
+        .hero_points .point {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        /* animacja odpala się dopiero po dodaniu .run na kontener */
+        .hero_points.run .point {
+            animation: pointIn 900ms ease-out forwards;
+        }
+
+        /* OPÓŹNIENIA – tu robimy “po kolei” */
+        .hero_points.run .point:nth-child(1) { animation-delay: 0ms; }
+        .hero_points.run .point:nth-child(2) { animation-delay: 500ms; }
+        .hero_points.run .point:nth-child(3) { animation-delay: 1000ms; }
+        .hero_points.run .point:nth-child(4) { animation-delay: 1500ms; }
+        .hero_points.run .point:nth-child(5) { animation-delay: 2000ms; }
+
+        @keyframes pointIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     }
 }

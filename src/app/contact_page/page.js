@@ -114,7 +114,7 @@ const Contact = () => {
         if (!data.message.trim()) {
             errors.message = t("field_required");
         } else if (data.message.trim().length <= 20) {
-            errors.message = t("must_contain"); // np. "Wiadomość musi mieć min. 20 znaków"
+            errors.message = t("must_contain");
         }
 
         if (!data.email.trim()) {
