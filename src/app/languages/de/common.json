@@ -16,6 +16,7 @@
   "hero_web": "Moderne Weblösungen",
   "home": "Startseite",
   "invalid_email": "Ungültige E-Mail!",
+  "main_page": "Startseite",
   "message": "Nachricht",
   "must_contain": "The message must be at least 20 characters long!",
   "must_contain_two_letters": "Der Text muss mindestens zwei Buchstaben enthalten!",
@@ -31,6 +32,13 @@
   "reject": "Ablehnen",
   "send": "Schicken",
   "sending": "Senden...",
+  "services": "Dienstleistungen",
+  "services_text1": "Wir entwerfen und implementieren fortschrittliche digitale Lösungen – von IT-Systemen über Simulationen und 3D-Umgebungen bis hin zu Zukunftstechnologien.",
+  "services_title1": "Leistungsumfang",
+  "technologies": "Technologien",
+  "technologies_title1": "",
   "title": "PromoHub",
+  "why_us": "Warum wir",
+  "why_us_title": "r",
   "verify_recaptcha": "reCAPTCHA-Verifizierung!"
 }

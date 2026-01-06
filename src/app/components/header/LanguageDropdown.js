@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import useTranslation from '../hooks/useTranslation';
+import useTranslation from '../../hooks/useTranslation';
 
 const languages = [
     { code: 'pl', label: 'PL' },
@@ -49,7 +49,7 @@ export default function LanguageDropdown({ forceClose }) {
     return (
         <div className="language-dropdown" ref={dropdownRef}>
             <button className="language-toggle" onClick={() => setOpen(!open)}>
-                <h5>{current?.label || 'EN'} ▼ </h5>
+                <h4>{current?.label || 'EN'} ▼ </h4>
             </button>
 
             {open && (
@@ -60,7 +60,7 @@ export default function LanguageDropdown({ forceClose }) {
                             className={`language-option`}
                             onClick={() => handleChange(code)}
                         >
-                            <h5>{label}</h5>
+                            <h4>{label}</h4>
                         </button>
                         </li>
                     ))}

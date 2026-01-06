@@ -24,11 +24,11 @@
     @include mobile-tablet {
         margin: 1rem 0;
     }
-  
+
     .language-toggle {
         cursor: pointer;
 
-        h5 {
+        h4 {
             transition: 0.3s;
 
             @include desktop {
@@ -51,10 +51,11 @@
     }
 
     .language-menu {
-        top: calc(100% + 16px); // trochę odstępu od toggle
-        left: 0;
+        top: calc(100% + 12px); // trochę odstępu od toggle
+        left: -10px;
         z-index: 1001; // musi być wyższe niż header (z-index: 1000)
         min-width: 100%;
+        transition: 2s;
         
         @include desktop {
             position: absolute;
@@ -71,14 +72,14 @@
                 width: 100%;
                 cursor: pointer;
 
-                h5 {
+                h4 {
                     transition: 0.3s;
+                }
 
-                    @include desktop {
+                @include desktop {
 
-                        &:hover {
-                            color: $accent-color;
-                        }
+                    &:hover h4 {
+                        color: $accent-color;
                     }
 
                     @include mobile-tablet {

@@ -12,6 +12,9 @@ export default function ProjectsPage() {
             <div ref={sec1Ref} className={`projects_container open ${isSec1Hidden ? 'hidden' : ''}`}>
                 <h1>{t('projects')}</h1>
             </div>
+            <div className='simulations' id='simulations'>
+                <h1>{t('simulations')}</h1>
+            </div>
         </section>
     );
 }

@@ -1,7 +1,7 @@
 import { ThemeProvider } from "next-themes";
 import "./globals.scss";
 import Loader from "./components/Loader";
-import Header from "./components/Header";
+import Header from "./components/header/Header";
 import Footer from "./components/Footer";
 import { CookiesConsentProvider } from "@/app/context/CookiesConsentContext";
 import CookieBanner from "@/app/components/CookieBanner";
