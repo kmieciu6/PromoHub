@@ -3,7 +3,11 @@
 import { useRef, useState } from "react";
 import useTranslation from "./hooks/useTranslation";
 import useIntersectionHide from "@/app/hooks/useIntersectionHide";
-import services_photo from "../../public/assets/opening.png";
+import www from "../../public/icons/world-www.svg";
+import systems from "../../public/icons/sitemap.svg";
+import cube from "../../public/icons/cube-3d-sphere.svg";
+import simulators from "../../public/icons/git-pull-request.svg";
+import studios from "../../public/icons/video.svg";
 
 export default function HomePage() {
     const { t } = useTranslation("common");
@@ -45,75 +49,99 @@ export default function HomePage() {
                 </div>
             </div>
             <div className='services' id='services'>
-                <div ref={sec2Ref} className={`open ${isSec2Hidden ? "hidden" : ""}`}>
-                    <h1>{t("services_title1")}</h1>
-                    <h3>{t("services_text1")}</h3>
-                    <div className='services_container'>
-                        <div className='services_text'>
-                            <h2>{t("services_title2")}</h2>
-                            <p>{t("services_text2")}</p>
-                            <li>{t("services_text3")}</li>
-                            <li>{t("services_text4")}</li>
-                            <li>{t("services_text5")}</li>
-                            <li>{t("services_text6")}</li>
+                <div className='services_flex'>
+                    <div ref={sec2Ref} className={`open services_title ${isSec2Hidden ? "hidden" : ""}`}>
+                        <h1>{t("services_title1")}</h1>
+                        <h3>{t("services_text1")}</h3>
+                    </div>
+                    <div className='services_container_wrapper'>
+                        <div ref={sec3Ref} className={`open services_container ${isSec3Hidden ? "hidden" : ""}`}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={www.src} alt='motion'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title2")}</h2>
+                                <p>{t("services_text2")}</p>
+                                <div className="divider"/>
+                                <li>{t("services_text3")}</li>
+                                <li>{t("services_text4")}</li>
+                                <li>{t("services_text5")}</li>
+                                <li>{t("services_text6")}</li>
+                                <div className='services_link'>
+                                    <a href='/projects_page#web'>Zobacz projekty →</a>
+                                </div>
+                            </div>
                         </div>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={services_photo.src} alt='motion'/>
+                        <div ref={sec4Ref} className={`open services_container ${isSec4Hidden ? "hidden" : ""}`}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={systems.src} alt='motion'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title3")}</h2>
+                                <p>{t("services_text7")}</p>
+                                <div className="divider"/>
+                                <li>{t("services_text8")}</li>
+                                <li>{t("services_text9")}</li>
+                                <li>{t("services_text10")}</li>
+                                <li>{t("services_text11")}</li>
+                                <div className='services_link'>
+                                    <a href='/projects_page#systems'>Zobacz projekty →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec5Ref} className={`open services_container ${isSec5Hidden ? "hidden" : ""}`}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={cube.src} alt='motion'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title4")}</h2>
+                                <p>{t("services_text12")}</p>
+                                <div className="divider"/>
+                                <li>{t("services_text13")}</li>
+                                <li>{t("services_text14")}</li>
+                                <li>{t("services_text15")}</li>
+                                <li>{t("services_text16")}</li>
+                                <div className='services_link'>
+                                    <a href='/projects_page#simulations'>Zobacz projekty →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec6Ref} className={`open services_container ${isSec6Hidden ? "hidden" : ""}`}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={simulators.src} alt='motion'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title5")}</h2>
+                                <p>{t("services_text17")}</p>
+                                <div className="divider"/>
+                                <li>{t("services_text18")}</li>
+                                <li>{t("services_text19")}</li>
+                                <li>{t("services_text20")}</li>
+                                <li>{t("services_text21")}</li>
+                                <div className='services_link'>
+                                    <a href='/projects_page#vr'>Zobacz projekty →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec7Ref} className={`open services_container ${isSec7Hidden ? "hidden" : ""}`}>
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={studios.src} alt='motion'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title6")}</h2>
+                                <p>{t("services_text22")}</p>
+                                <div className="divider"/>
+                                <li>{t("services_text23")}</li>
+                                <li>{t("services_text24")}</li>
+                                <li>{t("services_text25")}</li>
+                                <li>{t("services_text26")}</li>
+                                <div className='services_link'>
+                                    <a href='/projects_page#studios'>Zobacz projekty →</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div ref={sec3Ref} className={`open services_container ${isSec3Hidden ? "hidden" : ""}`}>
-                    <div className='services_text'>
-                        <h2>{t("services_title3")}</h2>
-                        <p>{t("services_text7")}</p>
-                        <li>{t("services_text8")}</li>
-                        <li>{t("services_text9")}</li>
-                        <li>{t("services_text10")}</li>
-                        <li>{t("services_text11")}</li>
-                    </div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={services_photo.src} alt='motion'/>
-                </div>
-                <div ref={sec4Ref} className={`open services_container ${isSec4Hidden ? "hidden" : ""}`}>
-                    <div className='services_text'>
-                        <h2>{t("services_title4")}</h2>
-                        <p>{t("services_text12")}</p>
-                        <li>{t("services_text13")}</li>
-                        <li>{t("services_text14")}</li>
-                        <li>{t("services_text15")}</li>
-                        <li>{t("services_text16")}</li>
-                        <a href='/projects_page#simulations'>Zobacz projekty →</a>
-                    </div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={services_photo.src} alt='motion'/>
-                </div>
-                <div ref={sec5Ref} className={`open services_container ${isSec5Hidden ? "hidden" : ""}`}>
-                    <div className='services_text'>
-                        <h2>{t("services_title5")}</h2>
-                        <p>{t("services_text17")}</p>
-                        <li>{t("services_text18")}</li>
-                        <li>{t("services_text19")}</li>
-                        <li>{t("services_text20")}</li>
-                        <li>{t("services_text21")}</li>
-                    </div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={services_photo.src} alt='motion'/>
-                </div>
-                <div ref={sec6Ref} className={`open services_container ${isSec6Hidden ? "hidden" : ""}`}>
-                    <div className='services_text'>
-                        <h2>{t("services_title6")}</h2>
-                        <p>{t("services_text22")}</p>
-                        <li>{t("services_text23")}</li>
-                        <li>{t("services_text24")}</li>
-                        <li>{t("services_text25")}</li>
-                        <li>{t("services_text26")}</li>
-                    </div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={services_photo.src} alt='motion'/>
                 </div>
             </div>
             <div className='why_us' id='why_us'>
                 <div ref={sec7Ref} className={`open ${isSec7Hidden ? "hidden" : ""}`}>
                     <h2>{t("why_us_title1")}</h2>
+
                 </div>
             </div>
             <div className='technologies' id='technologies'>
