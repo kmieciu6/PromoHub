@@ -116,8 +116,8 @@ export default function Header() {
                             <a className="nav-link" href="#" onClick={scrollToId("services")}>
                                 <h4>{t("services")}</h4>
                             </a>
-                            <a className="nav-link" href="#" onClick={scrollToId("why_us")}>
-                                <h4>{t("why_us")}</h4>
+                            <a className="nav-link" href="#" onClick={scrollToId("how_we_work")}>
+                                <h4>{t("how_we_work")}</h4>
                             </a>
                             <a className="nav-link" href="#" onClick={scrollToId("technologies")}>
                                 <h4>{t("technologies")}</h4>

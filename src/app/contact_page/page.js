@@ -5,11 +5,6 @@ import useTranslation from "@/app/hooks/useTranslation";
 import { useCookiesConsent } from "../context/CookiesConsentContext";
 import ConsentPlaceholder from "../components/ConsentPlaceholder";
 import useIntersectionHide from "@/app/hooks/useIntersectionHide";
-import user from "../../../public/icons/user.svg";
-import mail from "../../../public/icons/at.svg";
-import phone from "../../../public/icons/phone.svg";
-import message from "../../../public/icons/mail.svg";
-import send from "../../../public/icons/send.svg";
 
 const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
@@ -163,8 +158,7 @@ const Contact = () => {
                     className="form"
                 >
                     <label htmlFor="name">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={user.src} alt='motion'/>
+                        <img src='../icons/user.svg' alt='motion'/>
                         <p>{t("name")}</p>
                     </label>
                     <input
@@ -179,8 +173,7 @@ const Contact = () => {
                     {errors.name && <span className="error">{errors.name}</span>}
 
                     <label htmlFor="email">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={mail.src} alt='motion'/>
+                        <img src='../icons/at.svg' alt='motion'/>
                         <p>{t("email")}</p>
                     </label>
                     <input
@@ -195,8 +188,7 @@ const Contact = () => {
                     {errors.email && <span className="error">{errors.email}</span>}
 
                     <label htmlFor="phone">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={phone.src} alt='motion'/>
+                        <img src='../icons/phone.svg' alt='motion'/>
                         <p>{t("phone")}</p>
                     </label>
                     <input
@@ -210,8 +202,7 @@ const Contact = () => {
                     />
 
                     <label htmlFor="message">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={message.src} alt='motion'/>
+                        <img src='../icons/mail.svg' alt='motion'/>
                         <p>{t("message")}</p>
                     </label>
                     <textarea
@@ -273,8 +264,7 @@ const Contact = () => {
 
                     <div className="button">
                         <button type="submit" disabled={isSending}>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src={send.src} alt='motion'/>
+                            <img src='../icons/send.svg' alt='motion'/>
                             {isSending ? t("sending")  + '...' : t("send")}
                         </button>
                     </div>

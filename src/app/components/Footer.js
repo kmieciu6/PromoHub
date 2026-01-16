@@ -1,7 +1,6 @@
 "use client"
 import {usePathname} from 'next/navigation';
 import useTranslation from '../hooks/useTranslation';
-import photo from "../../../public/assets/opening.png";
 
 export default function Footer() {
     const pathname = usePathname();
@@ -30,14 +29,12 @@ export default function Footer() {
                     <p>{t('')}</p>
                 </div>
                 <div className='social_logos'>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        src={photo.src}
+                        src='../assets/opening.png'
                         alt="linkedin_logo"
                     />
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                        src={photo.src}
+                        src='../assets/opening.png'
                         alt="facebook_logo"
                     />
                 </div>
