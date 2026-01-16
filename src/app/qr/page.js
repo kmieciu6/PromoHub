@@ -1,3 +1,4 @@
+'use client'
 import useTranslation from "@/app/hooks/useTranslation";
 
 export default function QRRedirectPage() {
