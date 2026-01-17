@@ -34,6 +34,7 @@ export default function HomePage() {
     const [sec12Ref, isSec12Hidden] = useIntersectionHide();
     const [sec13Ref, isSec13Hidden] = useIntersectionHide();
     const [sec14Ref, isSec14Hidden] = useIntersectionHide();
+    const [sec15Ref, isSec15Hidden] = useIntersectionHide();
 
     function renderAccents(text) {
         const parts = text.split(/(\[\[.*?\]\])/g);
@@ -83,7 +84,7 @@ export default function HomePage() {
                     </div>
                     <div className='services_container_wrapper'>
                         <div ref={sec3Ref} className={`open services_container ${isSec3Hidden ? "hidden" : ""}`}>
-                            <img src='../icons/world-www.svg' alt='motion'/>
+                            <img src='/icons/world-www.svg' alt='motion'/>
                             <div className='services_text'>
                                 <h2>{t("services_title2")}</h2>
                                 <p>{t("services_text2")}</p>
@@ -98,7 +99,7 @@ export default function HomePage() {
                             </div>
                         </div>
                         <div ref={sec4Ref} className={`open services_container ${isSec4Hidden ? "hidden" : ""}`}>
-                            <img src='../icons/sitemap.svg' alt='motion'/>
+                            <img src='/icons/sitemap.svg' alt='motion'/>
                             <div className='services_text'>
                                 <h2>{t("services_title3")}</h2>
                                 <p>{t("services_text7")}</p>
@@ -113,7 +114,7 @@ export default function HomePage() {
                             </div>
                         </div>
                         <div ref={sec5Ref} className={`open services_container ${isSec5Hidden ? "hidden" : ""}`}>
-                            <img src='../icons/cube-3d-sphere.svg' alt='motion'/>
+                            <img src='/icons/cube-3d-sphere.svg' alt='motion'/>
                             <div className='services_text'>
                                 <h2>{t("services_title4")}</h2>
                                 <p>{t("services_text12")}</p>
@@ -128,7 +129,7 @@ export default function HomePage() {
                             </div>
                         </div>
                         <div ref={sec6Ref} className={`open services_container ${isSec6Hidden ? "hidden" : ""}`}>
-                            <img src='../icons/git-pull-request.svg' alt='motion'/>
+                            <img src='/icons/git-pull-request.svg' alt='motion'/>
                             <div className='services_text'>
                                 <h2>{t("services_title5")}</h2>
                                 <p>{t("services_text17")}</p>
@@ -143,7 +144,7 @@ export default function HomePage() {
                             </div>
                         </div>
                         <div ref={sec7Ref} className={`open services_container ${isSec7Hidden ? "hidden" : ""}`}>
-                            <img src='../icons/video.svg' alt='motion'/>
+                            <img src='/icons/video.svg' alt='motion'/>
                             <div className='services_text'>
                                 <h2>{t("services_title6")}</h2>
                                 <p>{t("services_text22")}</p>
@@ -162,12 +163,12 @@ export default function HomePage() {
             </div>
             <div className='how_we_work' id='how_we_work'>
                 <div className='how_we_work_container'>
-                    <div ref={sec7Ref} className={`open ${isSec7Hidden ? "hidden" : ""}`}>
+                    <div ref={sec8Ref} className={`open ${isSec8Hidden ? "hidden" : ""}`}>
                         <h2>{renderAccents(t("how_we_work_text1"))}</h2>
                         <p>{renderAccents(t("how_we_work_text2"))}</p>
                         <p>{renderAccents(t("how_we_work_text3"))}</p>
                     </div>
-                    <div ref={sec8Ref} className={`open ${isSec8Hidden ? "hidden" : ""}`}>
+                    <div ref={sec9Ref} className={`open ${isSec9Hidden ? "hidden" : ""}`}>
                         <h3>{renderAccents(t("how_we_work_text4"))}</h3>
                         <p>{renderAccents(t("how_we_work_text5"))}</p>
                         <p>{renderAccents(t("how_we_work_text6"))}</p>
@@ -177,7 +178,7 @@ export default function HomePage() {
             </div>
             <div className='technologies' id='technologies'>
                 <div className='technologies_container'>
-                    <div ref={sec9Ref} className={`open technologies_content ${isSec9Hidden ? "hidden" : ""}`}>
+                    <div ref={sec10Ref} className={`open technologies_content ${isSec10Hidden ? "hidden" : ""}`}>
                         <div className='technologies_text'>
                             <h2>{t("technologies_title1")}</h2>
                             <p>{renderAccents(t("technologies_text1"))}</p>
@@ -193,7 +194,7 @@ export default function HomePage() {
                             <p>{renderAccents(t("technologies_text9"))}</p>
                         </div>
                     </div>
-                    <div ref={sec10Ref} className={`open technologies_content ${isSec10Hidden ? "hidden" : ""}`}>
+                    <div ref={sec11Ref} className={`open technologies_content ${isSec11Hidden ? "hidden" : ""}`}>
                         <div className='technologies_text'>
                             <ReadMore scrollOffset={90}>
                                 <h3>{t("technologies_title2")}</h3>
@@ -221,9 +222,9 @@ export default function HomePage() {
                                 <p>{renderAccents(t("technologies_text26"))}</p>
                             </ReadMore>
                         </div>
-                        <img src="../assets/web.png" alt="" aria-hidden="true" />
+                        <img src="/assets/web.png" alt="" aria-hidden="true" />
                     </div>
-                    <div ref={sec11Ref} className={`open technologies_content ${isSec11Hidden ? "hidden" : ""}`}>
+                    <div ref={sec12Ref} className={`open technologies_content ${isSec12Hidden ? "hidden" : ""}`}>
                         <div className='technologies_text'>
                             <ReadMore scrollOffset={90}>
                                 <h3>{t("technologies_title3")}</h3>
@@ -253,9 +254,9 @@ export default function HomePage() {
                                 <p>{renderAccents(t("technologies_text45"))}</p>
                             </ReadMore>
                         </div>
-                        <img src="../assets/systems.png" alt="" aria-hidden="true" />
+                        <img src="/assets/systems.png" alt="" aria-hidden="true" />
                     </div>
-                    <div ref={sec12Ref} className={`open technologies_content ${isSec12Hidden ? "hidden" : ""}`}>
+                    <div ref={sec13Ref} className={`open technologies_content ${isSec13Hidden ? "hidden" : ""}`}>
                         <div className='technologies_text'>
                             <ReadMore scrollOffset={90}>
                                 <h3>{t("technologies_title4")}</h3>
@@ -285,9 +286,9 @@ export default function HomePage() {
                                 <p>{renderAccents(t("technologies_text64"))}</p>
                             </ReadMore>
                         </div>
-                        <img src="../assets/vr.png" alt="" aria-hidden="true" />
+                        <img src="/assets/vr.png" alt="" aria-hidden="true" />
                     </div>
-                    <div ref={sec13Ref} className={`open technologies_content ${isSec13Hidden ? "hidden" : ""}`}>
+                    <div ref={sec14Ref} className={`open technologies_content ${isSec14Hidden ? "hidden" : ""}`}>
                         <div className='technologies_text'>
                             <ReadMore scrollOffset={90}>
                                 <h3>{t("technologies_title5")}</h3>
@@ -316,9 +317,9 @@ export default function HomePage() {
                                 <p>{renderAccents(t("technologies_text82"))}</p>
                             </ReadMore>
                         </div>
-                        <img src="../assets/studios.png" alt="" aria-hidden="true" />
+                        <img src="/assets/studios.png" alt="" aria-hidden="true" />
                     </div>
-                    <div ref={sec14Ref} className={`open technologies_content ${isSec14Hidden ? "hidden" : ""}`}>
+                    <div ref={sec15Ref} className={`open technologies_content ${isSec15Hidden ? "hidden" : ""}`}>
                         <div className='technologies_text'>
                             <ReadMore scrollOffset={90}>
                                 <h3>{t("technologies_title6")}</h3>
@@ -341,7 +342,7 @@ export default function HomePage() {
                                 <p>{renderAccents(t("technologies_text95"))}</p>
                             </ReadMore>
                         </div>
-                        <img src='../assets/infrastructure.png' alt='motion'/>
+                        <img src='/assets/infrastructure.png' alt='motion'/>
                     </div>
                 </div>
             </div>

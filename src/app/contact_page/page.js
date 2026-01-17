@@ -158,7 +158,7 @@ const Contact = () => {
                     className="form"
                 >
                     <label htmlFor="name">
-                        <img src='../icons/user.svg' alt='motion'/>
+                        <img src='/icons/user.svg' alt='motion'/>
                         <p>{t("name")}</p>
                     </label>
                     <input
@@ -173,7 +173,7 @@ const Contact = () => {
                     {errors.name && <span className="error">{errors.name}</span>}
 
                     <label htmlFor="email">
-                        <img src='../icons/at.svg' alt='motion'/>
+                        <img src='/icons/at.svg' alt='motion'/>
                         <p>{t("email")}</p>
                     </label>
                     <input
@@ -188,7 +188,7 @@ const Contact = () => {
                     {errors.email && <span className="error">{errors.email}</span>}
 
                     <label htmlFor="phone">
-                        <img src='../icons/phone.svg' alt='motion'/>
+                        <img src='/icons/phone.svg' alt='motion'/>
                         <p>{t("phone")}</p>
                     </label>
                     <input
@@ -202,7 +202,7 @@ const Contact = () => {
                     />
 
                     <label htmlFor="message">
-                        <img src='../icons/mail.svg' alt='motion'/>
+                        <img src='/icons/mail.svg' alt='motion'/>
                         <p>{t("message")}</p>
                     </label>
                     <textarea
@@ -264,7 +264,7 @@ const Contact = () => {
 
                     <div className="button">
                         <button type="submit" disabled={isSending}>
-                            <img src='../icons/send.svg' alt='motion'/>
+                            <img src='/icons/send.svg' alt='motion'/>
                             {isSending ? t("sending")  + '...' : t("send")}
                         </button>
                     </div>

@@ -14,4 +14,4 @@ export default function QRRedirectPage() {
             </body>
         </html>
     );
-}  
+}

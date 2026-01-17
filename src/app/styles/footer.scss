@@ -16,23 +16,89 @@
 footer {
     width: 100%;
     height: auto;
-    padding: 2rem 0;
-    
+    padding: 2rem 0 2rem 0;
+
     @include desktop {
-        padding: 5rem 0;
+        padding: 3rem 0 2rem 0;
     }
 
-    .footer-container {
+    h1, p, a {
+        color: $main-dark-color !important;
+    }
+
+    .footer_container {
+        width: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
         flex-direction: column;
-        
-        .social_logos {
 
-            img {
-                width: 200px;
-                height: auto;
+        .footer_content {
+            width: 90%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+
+            @include desktop {
+                flex-direction: row;
+                width: 100%;
+            }
+
+            h1 {
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+
+            .contact_info {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                flex-direction: column;
+
+                @include mobile {
+                    margin-top: 2rem;
+                }
+
+                .contact_info_links {
+                    display: flex;
+                    margin-top: 2rem;
+
+                    p {
+                        margin-left: 1rem;
+                    }
+
+                    a p {
+                        color: $accent-color !important;
+                        text-decoration: none;
+                    }
+                }
+
+                .social_logos {
+                    display: flex;
+
+                    img {
+                        width: 50px;
+                        margin: 2rem;
+                        cursor: pointer;
+                        transition: 0.5s;
+
+                        @include desktop {
+                            &:hover {
+                                transform: scale(1.2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .coppy_right {
+            margin-top: 3rem;
+
+            @include desktop {
+                margin-top: 6rem;
             }
         }
     }

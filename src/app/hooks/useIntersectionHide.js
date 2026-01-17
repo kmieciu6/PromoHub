@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState, useEffect } from 'react';
 
-const DEFAULT_DESKTOP = { threshold: 0.2, rootMargin: "100px" }
+const DEFAULT_DESKTOP = { threshold: 0.2, rootMargin: "-200px" }
 const DEFAULT_MOBILE = { threshold: 0.2, rootMargin: "0px" }
 
 const useIntersectionHide = (
@@ -23,13 +23,6 @@ const useIntersectionHide = (
         const observerOptions = isMobile ? mobileOptions : desktopOptions;
 
         const observer = new IntersectionObserver((entries, obs) => {
-            // entries.forEach((entry) => {
-            //   // console.log("Observed:", entry.target, "isIntersecting:", entry.isIntersecting); // Debug
-            //     if (entry.isIntersecting) {
-            //         setIsHidden(false);
-            //         obs.unobserve(entry.target);
-            //     }
-            // });
             for (const entry of entries) {
                 if (entry.isIntersecting) {
                     setIsHidden(false);
@@ -47,11 +40,7 @@ const useIntersectionHide = (
 
         observer.observe(el);
 
-        // const el = ref.current;
-        // if (el) observer.observe(el);
-
         return () => {
-            // if (el) observer.unobserve(el);
             observer.disconnect();
         };
     }, [desktopOptions, mobileOptions, onReveal]);
