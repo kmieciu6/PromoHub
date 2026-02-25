@@ -1,0 +1,128 @@
+@use "colors" as *;
+@use "mixins" as *;
+
+.light .dropdown__menu {
+    background: $header-light-background-color;
+    color: $main-light-color;
+
+    .dropdown__option:hover{
+        color: $accent-color-light !important;
+    }
+}
+
+.dropdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include desktop {
+        width: fit-content;
+    }
+
+    &__toggle {
+        width: 100%;
+        cursor: pointer;
+        background: transparent;
+        border: 0;
+        transition: 0.3s;
+    }
+
+    &__toggle, &__option {
+        transition: 0.3s;
+
+        @include desktop {
+
+            &:hover {
+                transform: scale(1.1);
+                color: $accent-color !important;
+
+                h4 {
+                    color: $accent-color !important;
+                }
+            }
+        }
+
+        @include mobile-tablet {
+            transition: 0.1s;
+
+            &:active {
+                transform: scale(1.1);
+
+                h4 {
+                    color: $accent-color;
+                }
+            }
+        }
+    }
+
+    &__menu {
+        position: absolute;
+        top: 100%;
+        z-index: 1001;
+        min-width: 100%;
+        width: max-content;
+        max-width: 300px;
+        background: $header-dark-background-color;
+        color: $main-dark-color;
+
+        border-radius: 0 0 10px 10px;
+
+        /* animacja */
+        opacity: 0;
+        pointer-events: none;
+
+        /* max-height animuje OK, ale dodaj padding do wewnątrz listy */
+        max-height: 0;
+        overflow: hidden;
+
+        transition:
+                opacity 180ms ease,
+                transform 180ms ease,
+                max-height 220ms ease;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+
+        &.is-open {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+            max-height: 450px;
+        }
+
+        @include desktop {
+            top: calc(100% + 12px);
+        }
+    }
+
+    &__list {
+        margin: 0;
+        padding: 8px;
+        list-style: none;
+        width: 100%;
+
+        .dropdown__item {
+            width: 100%;
+            border-bottom: 1px solid $grey-color;
+            font-size: 1rem;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &__option {
+        width: 100%;
+        text-align: center;
+        background: transparent;
+        padding: 15px 12px;
+        cursor: pointer;
+
+        &.is-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+    }
+}

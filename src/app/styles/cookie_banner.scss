@@ -32,15 +32,16 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
+            color: white;
 
             &:first-of-type {
-                background: #4caf50;
-                color: white;
+                //background: #4caf50;
+                background: #2e7d32;
             }
 
             &:last-of-type {
-                background: #f44336;
-                color: white;
+                //background: #f44336;
+                background: #c62828;
             }
 
             &:hover {

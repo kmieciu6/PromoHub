@@ -1,9 +1,5 @@
 @use "./styles/index" as *;
 
-body {
-    font-family: $main-font;
-}
-
 * {
     box-sizing: border-box;
 }
@@ -12,13 +8,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-main {
-    margin-top: 60px;
+    padding-top: 60px;
 
     @include desktop {
-        margin-top: 80px;
+        padding-top: 80px;
     }
 }
 
@@ -29,6 +22,10 @@ main {
     h1, h2, h3, h4, h5, p, li, a, Link, button {
         color: #fff;
     }
+
+    .divider {
+        border: 1px solid $accent-color;
+    }
 }
 
 .light {
@@ -37,6 +34,10 @@ main {
 
     h1, h2, h3, h4, h5, p, li, a, Link, button {
         color: #000;
+    }
+
+    .divider {
+        border: 1px solid $accent-color_light;
     }
 }
 
@@ -78,4 +79,8 @@ p, li {
     &.hidden {
         opacity: 0;
     }
+}
+
+.divider {
+
 }

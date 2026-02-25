@@ -1,26 +1,60 @@
 "use client";
 
-import { useRef, useState } from "react";
 import useTranslation from "./hooks/useTranslation";
 import useIntersectionHide from "@/app/hooks/useIntersectionHide";
-import ReadMore, { ReadMoreMore } from "@/app/components/ReadMore";
+import {useEffect, useMemo, useRef, useState} from "react";
+import photo1 from "../../public/assets/web.png";
+import photo2 from "../../public/assets/infrastructure.png";
+import photo3 from "../../public/assets/studios.png";
+import photo4 from "../../public/assets/vr.png";
+import photo5 from "../../public/assets/systems.png";
+import Carousel from "@/app/components/Carousel";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Mousewheel} from "swiper/modules";
+import "swiper/css";
+import { useSyncExternalStore } from "react";
+import Image from "next/image";
+import web from '../../public/icons/world-www.svg';
+import sitemap from '../../public/icons/sitemap.svg';
+import cube from '../../public/icons/cube-3d-sphere.svg';
+import git from '../../public/icons/git-pull-request.svg';
+import video from '../../public/icons/video.svg';
+
+function useMounted() {
+    return useSyncExternalStore(
+        () => () => {},      // subscribe (no-op)
+        () => true,          // client snapshot
+        () => false          // server snapshot
+    );
+}
+
+function getIsTouchDevice() {
+    if (typeof window === "undefined") return false;
+
+    return (
+        "ontouchstart" in window ||
+        (navigator && navigator.maxTouchPoints > 0) ||
+        (navigator && navigator.msMaxTouchPoints > 0) ||
+        window.matchMedia("(pointer: coarse)").matches
+    );
+}
+
+function useIsTouchDevice() {
+    const [isTouch, setIsTouch] = useState(false); // ✅ zawsze false na SSR i 1. renderze klienta
+
+    useEffect(() => {
+        const id = requestAnimationFrame(() => {
+            setIsTouch(getIsTouchDevice());
+        });
+        return () => cancelAnimationFrame(id);
+    }, []);
+
+    return isTouch;
+}
 
 export default function HomePage() {
     const { t } = useTranslation("common");
-
-    const [wordsReady, setWordsReady] = useState(false);
-    const timerRef = useRef(null);
-
-    const onSec1Reveal = () => {
-        // startujemy tylko raz
-        if (timerRef.current) return;
-
-        timerRef.current = setTimeout(() => {
-            setWordsReady(true);
-        }, 1000); // ⏱️ timeout po zadzaiłaniu hooka
-    };
-
-    const [sec1Ref, isSec1Hidden] = useIntersectionHide(undefined, undefined, onSec1Reveal);
+    const [sec1Ref, isSec1Hidden] = useIntersectionHide();
     const [sec2Ref, isSec2Hidden] = useIntersectionHide();
     const [sec3Ref, isSec3Hidden] = useIntersectionHide();
     const [sec4Ref, isSec4Hidden] = useIntersectionHide();
@@ -35,12 +69,105 @@ export default function HomePage() {
     const [sec13Ref, isSec13Hidden] = useIntersectionHide();
     const [sec14Ref, isSec14Hidden] = useIntersectionHide();
     const [sec15Ref, isSec15Hidden] = useIntersectionHide();
+    const [sec16Ref, isSec16Hidden] = useIntersectionHide();
+    const [sec17Ref, isSec17Hidden] = useIntersectionHide();
+    const projectsDisabledRef = useRef(false);
+    const smoothScrollRef = useRef(null);
+
+    useEffect(() => {
+        smoothScrollRef.current = (targetEl) => {
+            if (!targetEl) return;
+
+            // wyłącz projects całkiem na czas scrolla
+            projectsDisabledRef.current = true;
+
+            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+
+            let timeoutId = null;
+
+            const onScroll = () => {
+                if (timeoutId) clearTimeout(timeoutId);
+
+                timeoutId = setTimeout(() => {
+                    projectsDisabledRef.current = false;
+                    window.removeEventListener("scroll", onScroll);
+                    if (timeoutId) clearTimeout(timeoutId);
+                }, 140);
+            };
+
+            window.addEventListener("scroll", onScroll, { passive: true });
+
+            // zabezpieczenie: gdyby scroll event nie poleciał (rzadkie), odblokuj po czasie
+            timeoutId = setTimeout(() => {
+                projectsDisabledRef.current = false;
+                window.removeEventListener("scroll", onScroll);
+            }, 2500);
+        };
+    }, []);
+
+    const runScrollToIdOnce = () => {
+        const id = sessionStorage.getItem("scrollToIdOnce");
+        const ignoreOnce = sessionStorage.getItem("ignoreProjectsOnce");
+        if (!id && !ignoreOnce) return;
+
+        if (id) sessionStorage.removeItem("scrollToIdOnce");
+        if (ignoreOnce) sessionStorage.removeItem("ignoreProjectsOnce");
+
+        if (!id) return;
+
+        let tries = 0;
+        const tick = () => {
+            const el = document.getElementById(id);
+            if (el) {
+                smoothScrollRef.current?.(el);
+                return;
+            }
+            tries += 1;
+            if (tries < 20) setTimeout(tick, 50);
+        };
+
+        tick();
+    };
+
+    useEffect(() => {
+        runScrollToIdOnce(); // na mount
+
+        const onEvt = () => runScrollToIdOnce();
+        window.addEventListener("app:scrollToIdOnce", onEvt);
+
+        return () => window.removeEventListener("app:scrollToIdOnce", onEvt);
+    }, []);
+
+    const slides = useMemo(() => [
+            { h2: t("opening_title2") },
+            { h2: t("opening_title3") },
+            { h2: t("opening_title4") },
+            { h2: t("opening_title5") },
+        ],
+        [t]
+    );
+
+    const [index, setIndex] = useState(0);
+    const [animKey, setAnimKey] = useState(0);
+
+    useEffect(() => {
+        if (slides.length <= 1) return;
+
+        const id = setInterval(() => {
+            setIndex((prev) => (prev + 1) % slides.length);
+            setAnimKey((k) => k + 1);
+        }, 3500);
+
+        return () => clearInterval(id);
+    }, [slides.length]);
+
+    const current = slides[index]
 
     function renderAccents(text) {
-        const parts = text.split(/(\[\[.*?\]\])/g);
+        const parts = text.split(/(\[\[.*?]])/g);
 
         return parts.map((part, idx) => {
-            const match = part.match(/^\[\[(.*)\]\]$/);
+            const match = part.match(/^\[\[(.*)]]$/);
 
             if (match) {
                 return (
@@ -61,288 +188,649 @@ export default function HomePage() {
         });
     }
 
+    const carousels = useMemo(() => ({
+        cosmos: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5}
+            ]
+        },
+        virtual_studio: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        wind_turbine_game: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        simulation_environment: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        interferometer: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        deep_locust: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        offshore_projects: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        web_applications: {
+            interval: 5000,
+            slides: [
+                {type: 'image', src: photo1},
+                {type: 'image', src: photo2},
+                {type: 'image', src: photo3},
+                {type: 'image', src: photo4},
+                {type: 'image', src: photo5},
+            ]
+        },
+        // { type: "video", src: video1 },
+    }), []);
+
+    const projects = useMemo(() => ([
+        { key: "cosmos", titleKey: "projects_title2", text1:"projects_text1", text2:"projects_text2", seeHref: "/", carousel: carousels.cosmos },
+        { key: "virtual_studio", titleKey: "projects_title3", text1:"projects_text3", text2:"projects_text4", seeHref: "/", carousel: carousels.virtual_studio },
+        { key: "wind_turbine_game", titleKey: "projects_title4", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.wind_turbine_game },
+        { key: "simulation_environment", titleKey: "projects_title5", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.simulation_environment },
+        { key: "interferometer", titleKey: "projects_title6", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.interferometer },
+        { key: "deep_locust", titleKey: "projects_title7", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.deep_locust },
+        { key: "offshore_projects", titleKey: "projects_title8", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.offshore_projects },
+        { key: "web_applications", titleKey: "projects_title9", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.web_applications },
+    ]), [carousels]);
+
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        const id = sessionStorage.getItem("scrollToIdOnce");
+        const ignoreOnce = sessionStorage.getItem("ignoreProjectsOnce");
+
+        if (!id && !ignoreOnce) return;
+
+        if (ignoreOnce) sessionStorage.removeItem("ignoreProjectsOnce");
+
+        if (id) sessionStorage.removeItem("scrollToIdOnce");
+        if (ignoreOnce) sessionStorage.removeItem("ignoreProjectsOnce");
+
+        if (!id) return;
+
+        let cancelled = false;
+        let timeoutId = null;
+
+        let tries = 0;
+        const tick = () => {
+            if (cancelled) return;
+
+            const el = document.getElementById(id);
+            if (el) {
+                smoothScrollRef.current?.(el);
+                return;
+            }
+            tries += 1;
+            if (tries < 20) setTimeout(tick, 50);
+        };
+
+        tick();
+        return () => {
+            cancelled = true;
+            if (timeoutId) clearTimeout(timeoutId);
+        }
+    }, []);
+
+    const swiperRef = useRef(null);
+    const projectsWrapRef = useRef(null);
+    const projectsLayoutRef = useRef(null);
+    const mounted = useMounted();
+    const isTouchDevice = useIsTouchDevice();
+    const isTouch = mounted && isTouchDevice;
+
+    useEffect(() => {
+        if (isTouch) return;
+        const el = projectsLayoutRef.current;
+        if (!el) return;
+
+        const DELTA_THRESHOLD = 180;  // im większe tym mniej czułe
+        const COOLDOWN_MS = 1200;     // blokada na czas animacji
+        const RESET_GAP_MS = 180;
+        const CENTER_TOP = 0.15;     // kiedy uznajemy sekcję za "aktywną"
+        const CENTER_BOT = 0.85;
+
+        let acc = 0;
+        let lastT = 0;
+        let cooldownUntil = 0;
+
+        const inProjectsCenter = () => {
+            const wrap = projectsWrapRef.current;
+            if (!wrap) return false;
+            const r = wrap.getBoundingClientRect();
+            const vh = window.innerHeight;
+            return r.top < vh * CENTER_TOP && r.bottom > vh * CENTER_BOT;
+        };
+
+        const onWheel = (e) => {
+            if (projectsDisabledRef.current) return;
+
+            const swiper = swiperRef.current;
+            if (!swiper) return;
+            if (!inProjectsCenter()) return;
+
+            const now = performance.now();
+            const rawDir = e.deltaY > 0 ? 1 : -1;
+
+            const atStart = swiper.isBeginning;
+            const atEnd = swiper.isEnd;
+
+            // ✅ NAJPIERW: jeśli na krawędzi i chcesz wyjść -> NIE blokuj strony
+            if ((rawDir < 0 && atStart) || (rawDir > 0 && atEnd)) {
+                acc = 0;
+                return; // brak preventDefault = strona scrolluje normalnie i "wychodzisz"
+            }
+
+            // ✅ DOPIERO TERAZ: blokujemy stronę i robimy 1 gest = 1 slide
+            e.preventDefault();
+
+            if (now < cooldownUntil) return;
+
+            if (now - lastT > RESET_GAP_MS) acc = 0;
+            lastT = now;
+
+            acc += e.deltaY;
+
+            if (Math.abs(acc) < DELTA_THRESHOLD) return;
+
+            const dir = acc > 0 ? 1 : -1;
+            acc = 0;
+            cooldownUntil = now + COOLDOWN_MS;
+
+            if (dir > 0) swiper.slideNext();
+            else swiper.slidePrev();
+        };
+
+        el.addEventListener("wheel", onWheel, { passive: false });
+        return () => el.removeEventListener("wheel", onWheel);
+    }, [isTouch]);
+
+    useEffect(() => {
+        if (isTouch) return;
+        const el = projectsWrapRef.current;
+        if (!el) return;
+
+        let snappedOnce = false;
+        const headerOffset = 90;
+
+        const onScroll = () => {
+            if (projectsDisabledRef.current) return;
+            const r = el.getBoundingClientRect();
+            const vh = window.innerHeight;
+
+            // 🟢 sekcja realnie "wchodzi" w viewport
+            const entering =
+                r.top <= vh * 0.4 && r.bottom >= vh * 0.6;
+
+            if (entering && !snappedOnce) {
+                snappedOnce = true;
+
+                const top =
+                    el.getBoundingClientRect().top +
+                    window.scrollY -
+                    headerOffset;
+
+                window.scrollTo({ top, behavior: "smooth" });
+            }
+
+            // 🔓 reset DOPIERO gdy Projects całkiem poza ekranem
+            const fullyOut =
+                r.bottom < -vh * 0.5 ||
+                r.top > vh * 1.5;
+
+            if (fullyOut) snappedOnce = false;
+        };
+
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("resize", onScroll);
+        };
+    }, [isTouch]);
+
+    useEffect(() => {
+        if (!isTouch) return;
+
+        const el = projectsWrapRef.current;
+        if (!el) return;
+
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                el.style.setProperty("--bgAlpha", entry.isIntersecting ? "1" : "0");
+            },
+            {
+                root: null,
+                threshold: 0.01,
+            }
+        );
+
+        io.observe(el);
+        return () => io.disconnect();
+    }, [isTouch]);
+
+    const logos = [
+        {
+            logo: "/logos/Squadron_logo.png",
+            link: "https://squadron.pl"
+        },
+        {
+            logo: "/logos/stamax_logo.png",
+            link: "",
+        },
+        {
+            logo: "/logos/uw_logo.png",
+            link: "https://uwr.edu.pl"
+        },
+        {
+            logo: "/logos/ocean_connnect_logo.png",
+            link: "https://www.oceanconnectenergy.com"
+        },
+        {
+            logo: "/logos/LKK_logo.png",
+            link: "https://lkk.pl/"
+        },
+        {
+            logo: "/logos/geotronics_logo.png",
+            link: "https://geotronics.com.pl"
+        },
+        {
+            logo: "/logos/gdansk_pl_logo.png",
+            link: "https://www.gdansk.pl"
+        },
+        {
+            logo: "/logos/Flint_systems.png",
+            link: "https://flint.systems/pl"
+        },
+        {
+            logo: "/logos/rpasar.png",
+            link: ""
+        },
+        // {
+        //     logo: "/logos/",
+        //     link: ""
+        // },
+    ];
+
+    const allLogos = [...logos, ...logos];
+
     return (
-        <section className="home_page page">
+        <section className="home_page page" id='home'>
             <div className="opening">
                 <div ref={sec1Ref} className={`open ${isSec1Hidden ? "hidden" : ""}`}>
-                    <h1>{t("opening_title1")}</h1>
-                    <h2>{t("opening_title2")}</h2>
-                    <div className={`hero_points ${wordsReady ? "run" : ""}`}>
-                        <h3 className="point">{t("hero_web")}</h3>
-                        <h3 className="point">{t("hero_systems")}</h3>
-                        <h3 className="point">{t("hero_3d")}</h3>
-                        <h3 className="point">{t("hero_simulators")}</h3>
-                        <h3 className="point">{t("hero_virtual_studios")}</h3>
+                    <video
+                        className="opening_video"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="none"
+                        poster="/videos/opening-poster.webp"
+                        // fetchPriority="high"
+                    >
+                        <source src="/videos/opening.mp4" type="video/mp4" />
+                    </video>
+                    <div className="opening_text">
+                        <h1>{t("opening_title1")}</h1>
+                        <div key={animKey}>
+                            <h2>{current.h2}</h2>
+                        </div>
                     </div>
                 </div>
             </div>
+
             <div className='services' id='services'>
                 <div className='services_flex'>
                     <div ref={sec2Ref} className={`open services_title ${isSec2Hidden ? "hidden" : ""}`}>
                         <h1>{t("services_title1")}</h1>
-                        <h3>{t("services_text1")}</h3>
                     </div>
                     <div className='services_container_wrapper'>
                         <div ref={sec3Ref} className={`open services_container ${isSec3Hidden ? "hidden" : ""}`}>
-                            <img src='/icons/world-www.svg' alt='motion'/>
+                            <Image src={web} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title2")}</h2>
-                                <p>{t("services_text2")}</p>
                                 <div className="divider"/>
-                                <li>{t("services_text3")}</li>
-                                <li>{t("services_text4")}</li>
-                                <li>{t("services_text5")}</li>
-                                <li>{t("services_text6")}</li>
+                                <p>{t("services_text")}</p>
                                 <div className='services_link'>
-                                    <a href='/projects_page#web'>Zobacz projekty →</a>
+                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                    <a href='/'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec4Ref} className={`open services_container ${isSec4Hidden ? "hidden" : ""}`}>
-                            <img src='/icons/sitemap.svg' alt='motion'/>
+                            <Image src={sitemap} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title3")}</h2>
-                                <p>{t("services_text7")}</p>
                                 <div className="divider"/>
-                                <li>{t("services_text8")}</li>
-                                <li>{t("services_text9")}</li>
-                                <li>{t("services_text10")}</li>
-                                <li>{t("services_text11")}</li>
+                                <p>{t("services_text")}</p>
                                 <div className='services_link'>
-                                    <a href='/projects_page#systems'>Zobacz projekty →</a>
+                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                    <a href='/'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec5Ref} className={`open services_container ${isSec5Hidden ? "hidden" : ""}`}>
-                            <img src='/icons/cube-3d-sphere.svg' alt='motion'/>
+                            <Image src={cube} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title4")}</h2>
-                                <p>{t("services_text12")}</p>
                                 <div className="divider"/>
-                                <li>{t("services_text13")}</li>
-                                <li>{t("services_text14")}</li>
-                                <li>{t("services_text15")}</li>
-                                <li>{t("services_text16")}</li>
+                                <p>{t("services_text")}</p>
                                 <div className='services_link'>
-                                    <a href='/projects_page#simulations'>Zobacz projekty →</a>
+                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                    <a href='/'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec6Ref} className={`open services_container ${isSec6Hidden ? "hidden" : ""}`}>
-                            <img src='/icons/git-pull-request.svg' alt='motion'/>
+                            <Image src={git} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title5")}</h2>
-                                <p>{t("services_text17")}</p>
                                 <div className="divider"/>
-                                <li>{t("services_text18")}</li>
-                                <li>{t("services_text19")}</li>
-                                <li>{t("services_text20")}</li>
-                                <li>{t("services_text21")}</li>
+                                <p>{t("services_text")}</p>
                                 <div className='services_link'>
-                                    <a href='/projects_page#vr'>Zobacz projekty →</a>
+                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                    <a href='/'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec7Ref} className={`open services_container ${isSec7Hidden ? "hidden" : ""}`}>
-                            <img src='/icons/video.svg' alt='motion'/>
+                            <Image src={video} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title6")}</h2>
-                                <p>{t("services_text22")}</p>
                                 <div className="divider"/>
-                                <li>{t("services_text23")}</li>
-                                <li>{t("services_text24")}</li>
-                                <li>{t("services_text25")}</li>
-                                <li>{t("services_text26")}</li>
+                                <p>{t("services_text")}</p>
                                 <div className='services_link'>
-                                    <a href='/projects_page#studios'>Zobacz projekty →</a>
+                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                    <a href='/'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className='how_we_work' id='how_we_work'>
-                <div className='how_we_work_container'>
-                    <div ref={sec8Ref} className={`open ${isSec8Hidden ? "hidden" : ""}`}>
-                        <h2>{renderAccents(t("how_we_work_text1"))}</h2>
-                        <p>{renderAccents(t("how_we_work_text2"))}</p>
-                        <p>{renderAccents(t("how_we_work_text3"))}</p>
-                    </div>
-                    <div ref={sec9Ref} className={`open ${isSec9Hidden ? "hidden" : ""}`}>
-                        <h3>{renderAccents(t("how_we_work_text4"))}</h3>
-                        <p>{renderAccents(t("how_we_work_text5"))}</p>
-                        <p>{renderAccents(t("how_we_work_text6"))}</p>
-                        <p>{renderAccents(t("how_we_work_text7"))}</p>
-                    </div>
-                </div>
+
+            <div className={`projects ${isTouch ? "is-touch" : "is-desktop"}`} id="projects" ref={projectsWrapRef}>
+                <div className="projects_bg" aria-hidden="true" />
+                {isTouch ? (
+                    <>
+                        <div className='projects_container'>
+                            <div ref={sec8Ref} className={`open ${isSec8Hidden ? "hidden" : ""}`}>
+                                <h1>{t("projects_title1")}</h1>
+                            </div>
+                            {/*Cosmos*/}
+                            <div ref={sec9Ref} className={`open projects_content ${isSec9Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h2>{t("projects_title2")}</h2>
+                                    <p>{renderAccents(t("projects_text1"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text2"))}</p>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.cosmos.slides} interval={carousels.cosmos.interval} />
+                            </div>
+                            {/*Virtual Studio*/}
+                            <div ref={sec10Ref} className={`open projects_content ${isSec10Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title3")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.virtual_studio.slides} interval={carousels.virtual_studio.interval} />
+                            </div>
+                            {/*Wind Turbine Game*/}
+                            <div ref={sec11Ref} className={`open projects_content ${isSec11Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title4")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.wind_turbine_game.slides} interval={carousels.wind_turbine_game.interval} />
+                            </div>
+                            {/*Application for managing the simulation environment*/}
+                            <div ref={sec12Ref} className={`open projects_content ${isSec12Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title5")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.simulation_environment.slides} interval={carousels.simulation_environment.interval} />
+                            </div>
+                            {/*Interferometer*/}
+                            <div ref={sec13Ref} className={`open projects_content ${isSec13Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title6")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.interferometer.slides} interval={carousels.interferometer.interval} />
+                            </div>
+                            {/*Deep Locust*/}
+                            <div ref={sec14Ref} className={`open projects_content ${isSec14Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title7")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.deep_locust.slides} interval={carousels.deep_locust.interval} />
+                            </div>
+                            {/*Offshore Projects*/}
+                            <div ref={sec15Ref} className={`open projects_content ${isSec15Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title8")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.offshore_projects.slides} interval={carousels.offshore_projects.interval} />
+                            </div>
+                            {/*Web applications*/}
+                            <div ref={sec16Ref} className={`open projects_content ${isSec16Hidden ? "hidden" : ""}`}>
+                                <div className='projects_text'>
+                                    <h3>{t("projects_title9")}</h3>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <div className="divider"/>
+                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <ul>
+                                        <li>{renderAccents(t("projects_text"))}</li>
+                                    </ul>
+                                    <div className='projects_link'>
+                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                                        <a href='/'>{t('see_project')} →</a>
+                                    </div>
+                                </div>
+                                <Carousel slides={carousels.web_applications.slides} interval={carousels.web_applications.interval} />
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <h1>{t("projects_title1")}</h1>
+                        <div className="projects_layout" ref={projectsLayoutRef}>
+                            <div className="projects_layoutInner">
+                                {/* LEWA STRONA – SLIDY */}
+                                <Swiper
+                                    onSwiper={(sw) => (swiperRef.current = sw)}
+                                    onSlideChange={(sw) => setActiveIndex(sw.activeIndex)}
+                                    direction="vertical"
+                                    slidesPerView={1}
+                                    modules={[Mousewheel]}
+                                    speed={800}
+                                    allowTouchMove={isTouch}
+                                    mousewheel={false}
+                                    className="projects_swiper only-active-visible"
+                                >
+                                    {projects.map((p, i) => (
+                                        <SwiperSlide key={p.key}>
+                                            <div className="projects_slide">
+                                                <div className="projects_card">
+                                                    <div className="projects_text">
+                                                        <h2>{t(p.titleKey)}</h2>
+                                                        <div>
+                                                            <p>{renderAccents(t(p.text1))}</p>
+                                                            <div className="divider"/>
+                                                            <p>{renderAccents(t(p.text2))}</p>
+                                                        </div>
+                                                        <div className="projects_link">
+                                                            <a href={p.seeHref}>{t("see_project")} →</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <Carousel
+                                                        slides={p.carousel.slides}
+                                                        interval={p.carousel.interval}
+                                                        isActive={i === activeIndex}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+
+                                {/* PRAWA STRONA – NAV (STAŁY) */}
+                                <aside className="projects_nav">
+                                    <h3>
+                                        {t("projects_nav_title")}
+                                    </h3>
+
+                                    <div className="projects_navButtons">
+                                        {projects.map((p, i) => (
+                                            <button
+                                                key={p.key}
+                                                type="button"
+                                                onClick={() => swiperRef.current?.slideTo(i)}
+                                                className={`projects_navBtn ${i === activeIndex ? "is-active" : ""}`}
+                                            >
+                                                <span className="projects_navDot" />
+                                                {t(p.titleKey)}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                        <div className="projects_spacer" />
+                    </>
+                )}
             </div>
-            <div className='technologies' id='technologies'>
-                <div className='technologies_container'>
-                    <div ref={sec10Ref} className={`open technologies_content ${isSec10Hidden ? "hidden" : ""}`}>
-                        <div className='technologies_text'>
-                            <h2>{t("technologies_title1")}</h2>
-                            <p>{renderAccents(t("technologies_text1"))}</p>
-                            <p>{renderAccents(t("technologies_text2"))}</p>
-                            <div className="divider"/>
-                            <p>{renderAccents(t("technologies_text3"))}</p>
-                            <li>{renderAccents(t("technologies_text4"))}</li>
-                            <li>{renderAccents(t("technologies_text5"))}</li>
-                            <li>{renderAccents(t("technologies_text6"))}</li>
-                            <li>{renderAccents(t("technologies_text7"))}</li>
-                            <div className="divider"/>
-                            <p>{renderAccents(t("technologies_text8"))}</p>
-                            <p>{renderAccents(t("technologies_text9"))}</p>
+
+            <div className='cooperation' id='cooperation'>
+                <div ref={sec17Ref} className={`open ${isSec17Hidden ? "hidden" : ""}`}>
+                    <h1>
+                        {t("cooperation")}
+                    </h1>
+                    <div className="logo_slider">
+                        <div className="logo_slider-track">
+                            {allLogos.map((item, index) => (
+                                <div className="logo_slide" key={index}>
+                                    <a href={item.link} target="_blank" rel="noopener noreferrer">
+                                        <div className="logo_image">
+                                            <Image src={item.logo} alt={`partner-${index % logos.length}`} fill sizes="(max-width: 768px) 120px, 200px" className='img'/>
+                                        </div>
+                                    </a>
+                                </div>
+                            ))}
                         </div>
-                    </div>
-                    <div ref={sec11Ref} className={`open technologies_content ${isSec11Hidden ? "hidden" : ""}`}>
-                        <div className='technologies_text'>
-                            <ReadMore scrollOffset={90}>
-                                <h3>{t("technologies_title2")}</h3>
-                                <p>{renderAccents(t("technologies_text10"))}</p>
-                                <p>{renderAccents(t("technologies_text11"))}</p>
-                                <ReadMoreMore />
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text12"))}</p>
-                                <li>{renderAccents(t("technologies_text13"))}</li>
-                                <li>{renderAccents(t("technologies_text14"))}</li>
-                                <li>{renderAccents(t("technologies_text15"))}</li>
-                                <li>{renderAccents(t("technologies_text16"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text17"))}</p>
-                                <li>{renderAccents(t("technologies_text18"))}</li>
-                                <li>{renderAccents(t("technologies_text19"))}</li>
-                                <li>{renderAccents(t("technologies_text20"))}</li>
-                                <li>{renderAccents(t("technologies_text21"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text22"))}</p>
-                                <li>{renderAccents(t("technologies_text23"))}</li>
-                                <li>{renderAccents(t("technologies_text24"))}</li>
-                                <li>{renderAccents(t("technologies_text25"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text26"))}</p>
-                            </ReadMore>
-                        </div>
-                        <img src="/assets/web.png" alt="" aria-hidden="true" />
-                    </div>
-                    <div ref={sec12Ref} className={`open technologies_content ${isSec12Hidden ? "hidden" : ""}`}>
-                        <div className='technologies_text'>
-                            <ReadMore scrollOffset={90}>
-                                <h3>{t("technologies_title3")}</h3>
-                                <p>{renderAccents(t("technologies_text27"))}</p>
-                                <p>{renderAccents(t("technologies_text28"))}</p>
-                                <p>{renderAccents(t("technologies_text29"))}</p>
-                                <ReadMoreMore />
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text30"))}</p>
-                                <li>{renderAccents(t("technologies_text31"))}</li>
-                                <li>{renderAccents(t("technologies_text32"))}</li>
-                                <li>{renderAccents(t("technologies_text33"))}</li>
-                                <li>{renderAccents(t("technologies_text34"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text35"))}</p>
-                                <li>{renderAccents(t("technologies_text36"))}</li>
-                                <li>{renderAccents(t("technologies_text37"))}</li>
-                                <li>{renderAccents(t("technologies_text38"))}</li>
-                                <li>{renderAccents(t("technologies_text39"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text40"))}</p>
-                                <li>{renderAccents(t("technologies_text41"))}</li>
-                                <li>{renderAccents(t("technologies_text42"))}</li>
-                                <li>{renderAccents(t("technologies_text43"))}</li>
-                                <li>{renderAccents(t("technologies_text44"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text45"))}</p>
-                            </ReadMore>
-                        </div>
-                        <img src="/assets/systems.png" alt="" aria-hidden="true" />
-                    </div>
-                    <div ref={sec13Ref} className={`open technologies_content ${isSec13Hidden ? "hidden" : ""}`}>
-                        <div className='technologies_text'>
-                            <ReadMore scrollOffset={90}>
-                                <h3>{t("technologies_title4")}</h3>
-                                <p>{renderAccents(t("technologies_text46"))}</p>
-                                <p>{renderAccents(t("technologies_text47"))}</p>
-                                <ReadMoreMore />
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text48"))}</p>
-                                <li>{renderAccents(t("technologies_text49"))}</li>
-                                <li>{renderAccents(t("technologies_text50"))}</li>
-                                <li>{renderAccents(t("technologies_text51"))}</li>
-                                <li>{renderAccents(t("technologies_text52"))}</li>
-                                <li>{renderAccents(t("technologies_text53"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text54"))}</p>
-                                <li>{renderAccents(t("technologies_text55"))}</li>
-                                <li>{renderAccents(t("technologies_text56"))}</li>
-                                <li>{renderAccents(t("technologies_text57"))}</li>
-                                <li>{renderAccents(t("technologies_text58"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text59"))}</p>
-                                <li>{renderAccents(t("technologies_text60"))}</li>
-                                <li>{renderAccents(t("technologies_text61"))}</li>
-                                <li>{renderAccents(t("technologies_text62"))}</li>
-                                <li>{renderAccents(t("technologies_text63"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text64"))}</p>
-                            </ReadMore>
-                        </div>
-                        <img src="/assets/vr.png" alt="" aria-hidden="true" />
-                    </div>
-                    <div ref={sec14Ref} className={`open technologies_content ${isSec14Hidden ? "hidden" : ""}`}>
-                        <div className='technologies_text'>
-                            <ReadMore scrollOffset={90}>
-                                <h3>{t("technologies_title5")}</h3>
-                                <p>{renderAccents(t("technologies_text65"))}</p>
-                                <p>{renderAccents(t("technologies_text66"))}</p>
-                                <ReadMoreMore />
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text67"))}</p>
-                                <li>{renderAccents(t("technologies_text68"))}</li>
-                                <li>{renderAccents(t("technologies_text69"))}</li>
-                                <li>{renderAccents(t("technologies_text70"))}</li>
-                                <li>{renderAccents(t("technologies_text71"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text72"))}</p>
-                                <li>{renderAccents(t("technologies_text73"))}</li>
-                                <li>{renderAccents(t("technologies_text74"))}</li>
-                                <li>{renderAccents(t("technologies_text75"))}</li>
-                                <li>{renderAccents(t("technologies_text76"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text77"))}</p>
-                                <li>{renderAccents(t("technologies_text78"))}</li>
-                                <li>{renderAccents(t("technologies_text79"))}</li>
-                                <li>{renderAccents(t("technologies_text80"))}</li>
-                                <li>{renderAccents(t("technologies_text81"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text82"))}</p>
-                            </ReadMore>
-                        </div>
-                        <img src="/assets/studios.png" alt="" aria-hidden="true" />
-                    </div>
-                    <div ref={sec15Ref} className={`open technologies_content ${isSec15Hidden ? "hidden" : ""}`}>
-                        <div className='technologies_text'>
-                            <ReadMore scrollOffset={90}>
-                                <h3>{t("technologies_title6")}</h3>
-                                <p>{renderAccents(t("technologies_text83"))}</p>
-                                <p>{renderAccents(t("technologies_text84"))}</p>
-                                <ReadMoreMore />
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text85"))}</p>
-                                <li>{renderAccents(t("technologies_text86"))}</li>
-                                <li>{renderAccents(t("technologies_text87"))}</li>
-                                <li>{renderAccents(t("technologies_text88"))}</li>
-                                <li>{renderAccents(t("technologies_text89"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text90"))}</p>
-                                <li>{renderAccents(t("technologies_text91"))}</li>
-                                <li>{renderAccents(t("technologies_text92"))}</li>
-                                <li>{renderAccents(t("technologies_text93"))}</li>
-                                <li>{renderAccents(t("technologies_text94"))}</li>
-                                <div className="divider"/>
-                                <p>{renderAccents(t("technologies_text95"))}</p>
-                            </ReadMore>
-                        </div>
-                        <img src='/assets/infrastructure.png' alt='motion'/>
                     </div>
                 </div>
             </div>

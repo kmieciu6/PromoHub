@@ -6,7 +6,6 @@ export default function ProjectsPage() {
     const { t } = useTranslation('common')
     const [sec1Ref, isSec1Hidden] = useIntersectionHide();
 
-
     return (
         <section className='projects_page page'>
             <div ref={sec1Ref} className={`projects_container open ${isSec1Hidden ? 'hidden' : ''}`}>

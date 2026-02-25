@@ -1,0 +1,346 @@
+@use "colors" as *;
+@use "mixins" as *;
+
+.light .contact {
+
+    &:after {
+        background: rgba(255, 255, 255, 0.67);
+    }
+
+    button {
+        border-color: $accent-color-light !important;
+
+        .icon_send {
+            background-color: $accent-color-light !important;
+        }
+    }
+
+    input, textarea {
+        background: rgba(255,255,255,0.7) !important;
+        border: 1px solid rgba(0,0,0,0.08) !important;
+        color: #1b2430 !important;
+
+        @include desktop {
+
+            &:hover {
+                border-color: #5b8dff !important;
+                box-shadow: 0 0 0 2px rgba(91,141,255,0.15) !important;
+            }
+        }
+    }
+
+    .checkbox {
+
+        .checkmark::after {
+            border-color: $accent-color-light !important;
+        }
+
+        &:hover .checkmark {
+            border-color: $accent-color-light !important;
+        }
+
+        input:focus-visible ~ .checkmark {
+            box-shadow: 0 0 0 3px rgba($accent-color-light, 0.25) !important;
+        }
+
+        input:checked ~ .checkmark {
+            border-color: $accent-color-light !important;
+        }
+
+        a {
+            color: $accent-color-light !important;
+        }
+    }
+}
+
+.contact {
+    position: relative;
+    width: 100%;
+    background-image: url("../../../public/assets/background1.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: scroll;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: inherit;
+        background-size: inherit;
+        background-position: inherit;
+        filter: blur(3px);
+        transform: translate3d(var(--bg-x, 0px), var(--bg-y, 0px), 0) scale(1.1);
+        will-change: transform;
+        transition: transform 120ms ease-out;
+        z-index: 0;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.25);   // ✅ opcjonalnie: kontrast/czytelność
+        z-index: 1;
+    }
+
+    > * {
+        position: relative;
+        z-index: 2;
+    }
+
+    .success {
+        color: green;
+        font-size: 2rem;
+        text-align: center;
+
+        @include mobile {
+            font-size: 1.5rem;
+        }
+    }
+
+    .error {
+        color: red;
+        margin-top: 0.5rem;
+        margin-bottom: -1rem;
+        width: 400px;
+        text-align: center;
+
+        @include mobile {
+            width: 90%;
+        }
+
+        &:last-of-type {
+            margin-top: 3rem;
+        }
+    }
+
+    .contact_container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 2rem 0;
+        max-width: 1000px;
+    }
+
+    h1 {
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+    }
+
+    @include desktop {
+        padding: 5rem 0;
+
+        h1 {
+            margin-bottom: 3rem;
+        }
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .label {
+            width: 400px;
+            display: flex;
+            align-items: center;
+            margin: 2rem 0 1rem 0;
+
+            @include mobile {
+              width: 90%;
+            }
+        }
+
+        img {
+            width: 50px;
+            margin-right: 1rem;
+        }
+
+        label {
+            width: 400px;
+
+            @include mobile {
+                width: 90%;
+            }
+
+            input, textarea {
+                width: 100%;
+                padding: 0.5rem 1rem;
+                background: rgba(255,255,255,0.08);
+                border: 1px solid rgba(255,255,255,0.12);
+                border-radius: 10px;
+                transition: 0.5s;
+                font-size: 1.3rem;
+
+                @include desktop {
+
+                    &:hover {
+                        border-color: #6ea8ff;
+                        background: rgba(255,255,255,0.12);
+                    }
+                }
+            }
+        }
+
+        .checkbox_container {
+            margin-top: 2rem;
+            width: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-direction: column;
+
+            @include mobile {
+                width: 90%;
+            }
+
+            .checkbox {
+                width: 100%;
+                display: flex;
+                align-items: flex-start;
+                gap: 15px;
+                cursor: pointer;
+                position: relative;
+                user-select: none;
+
+                input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+                .checkmark {
+                    margin-top: 0.3rem;
+                    width: 20px;
+                    height: 20px;
+                    border: 2px solid var(--color-border, #666);
+                    border-radius: 4px;
+                    position: relative;
+                    flex-shrink: 0;
+                    transition: border-color 0.2s ease;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: 5px;
+                        top: 1px;
+                        width: 6px;
+                        height: 12px;
+                        border: solid $accent-color;
+                        border-width: 0 2px 2px 0;
+                        transform: rotate(45deg) scale(0);
+                        opacity: 0;
+                        transition:
+                            transform 0.15s ease,
+                            opacity 0.15s ease;
+                    }
+                }
+
+                &:hover .checkmark {
+                    border-color: $accent-color;
+                }
+
+                input:focus-visible ~ .checkmark {
+                    box-shadow: 0 0 0 3px rgba($accent-color, 0.25);
+                }
+
+                input:checked ~ .checkmark {
+                    border-color: $accent-color;
+                }
+
+                input:checked ~ .checkmark::after {
+                    transform: rotate(45deg) scale(1);
+                    opacity: 1;
+                }
+
+                a {
+                    color: $accent-color;
+                    transition: 0.5s;
+
+                    @include desktop {
+
+                        &:hover {
+                            text-decoration: underline;
+                            color: red;
+                        }
+                    }
+                }
+            }
+        }
+
+        .recaptcha {
+
+            @include mobile {
+                transform: scale(0.8); // np. 0.8 / 0.9 / 1.1
+            }
+
+            .consent_placeholder {
+                //border: 1px solid red;
+                display: flex;
+                margin-top: 2rem;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                button {
+                    margin-top: 1rem ;
+                    color: #fff;
+                    background: #4caf50;
+                    padding: 0.5rem 1rem;
+                    border-radius: 10px;
+                }
+            }
+
+            iframe {
+                margin-top: 2rem;
+                max-width: none;
+            }
+        }
+
+        .button button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 4rem;
+            width: 150px;
+            height: 60px;
+            border: 2px solid $accent-color;
+            border-radius: 10px;
+            transition: 0.5s;
+
+            .icon_send {
+                width: 40px;
+                height: 40px;
+                background-color: $accent-color;
+                mask: url("../../../public/icons/send.svg") no-repeat center / contain;
+                -webkit-mask: url('../../../public/icons/send.svg') no-repeat center / contain;
+                transition: background-color 0.5s ease;
+                margin-right: 1rem;
+            }
+
+            @include desktop {
+
+                &:hover {
+                    border-color: red !important;
+
+                    .icon_send {
+                        background-color: red !important;
+                    }
+                }
+            }
+        }
+    }
+}

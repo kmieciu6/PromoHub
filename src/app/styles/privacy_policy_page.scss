@@ -1,0 +1,84 @@
+@use "colors" as *;
+@use "mixins" as *;
+
+.light .privacy_policy_page {
+    background:
+        radial-gradient(
+                        circle at top right,
+                        rgba(120, 120, 255, 0.08),
+                        transparent 45%
+        ),
+        radial-gradient(
+                        circle at bottom left,
+                        rgba(0, 200, 180, 0.06),
+                        transparent 40%
+        ),
+        #f6f7f9 !important;
+}
+
+.privacy_policy_page {
+    width: 100%;
+    padding: 3rem 0;
+    background:
+        radial-gradient(
+                        circle at top left,
+                        rgba(90, 100, 255, 0.08),
+                        transparent 45%
+        ),
+        radial-gradient(
+                        circle at bottom right,
+                        rgba(0, 200, 180, 0.06),
+                        transparent 40%
+        ),
+        #0e1116;
+
+    &::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("../../../public/assets/noise.png");
+        opacity: 0.04;
+    }
+
+    @include desktop {
+        padding: 5rem 0;
+    }
+
+    .privacy_policy_container {
+        width: 90%;
+        max-width: 1000px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+            h1 {
+                margin-bottom: 1rem;
+
+                @include desktop {
+                    margin-bottom: 5rem;
+                }
+            }
+
+        div {
+            width: 100%;
+
+            h2 {
+                margin: 3rem 0 2rem 0;
+
+                @include desktop {
+                    margin: 4rem 0 2rem 0;
+                }
+            }
+
+            p {
+                margin: 1rem 0;
+            }
+
+            li {
+                margin: 1rem;
+            }
+        }
+    }
+}

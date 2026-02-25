@@ -1,7 +1,5 @@
-"use client";
-
 import { useTheme } from "next-themes";
-import { MdOutlineBrightnessAuto, MdLightMode, MdDarkMode } from "react-icons/md";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 import {useEffect, useState} from "react";
 
 export default function ThemeToggle() {
@@ -13,20 +11,12 @@ export default function ThemeToggle() {
         setMounted(true),
 []);
 
-    const modes = ["system", "light", "dark"];
     const toggleTheme = () => {
-        const idx = (modes.indexOf(theme) + 1) % modes.length;
-        setTheme(modes[idx]);
+        setTheme(theme === "dark" ? "light" : "dark");
     };
 
-    let Icon = null;
-    if (mounted) {
-        Icon = {
-            system: MdOutlineBrightnessAuto,
-            light: MdLightMode,
-            dark: MdDarkMode,
-        }[theme];
-    }
+    let Icon = theme === "dark" ? MdDarkMode : MdLightMode;
+    if (!mounted) return null;
 
     return (
         <button
@@ -34,7 +24,7 @@ export default function ThemeToggle() {
             onClick={toggleTheme}
             aria-label="Toggle theme"
         >
-            {mounted && Icon && <Icon/>}
+            <Icon/>
         </button>
     );
 }

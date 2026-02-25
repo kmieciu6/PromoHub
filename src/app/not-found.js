@@ -1,7 +1,7 @@
 'use client';
+
 import useTranslation from './hooks/useTranslation';
 import useIntersectionHide from "@/app/hooks/useIntersectionHide";
-// import Image from 'next/image';
 
 const NotFoundPage = () => {
     const { t } = useTranslation('common')
@@ -10,19 +10,14 @@ const NotFoundPage = () => {
     return (
         <section className='not_found_page'>
             <div ref={secRef} className={`open ${isSecHidden ? 'hidden' : ''}`}>
-                <h1>Error 404</h1>
-                <p>
+                <div className="glitch glitch--big" data-text="Error 404">
+                    Error 404
+                </div>
+                <h3 className="glitch glitch--small" data-text={t('not_found_page')}>
                     {t('not_found_page')}
-                </p>
+                </h3>
                 {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a href='/'><button>{t('home')}</button></a>
-                {/*<Image*/}
-                {/*    src="/images/page_not_found.jpg"*/}
-                {/*    alt="not found"*/}
-                {/*    width={800}*/}
-                {/*    height={800}*/}
-                {/*    priority*/}
-                {/*/>*/}
             </div>
         </section>
     );
