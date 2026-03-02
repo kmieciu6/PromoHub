@@ -58,7 +58,7 @@ export async function POST(request) {
 
         const mailOptions = {
             from: `"${name}" <${email}>`,
-            to: process.env.CONTACT_TO || "jakub.kmiecik96@gmail.com",
+            to: process.env.CONTACT_TO,
             subject: `Wiadomość z formularza z PromoHub od ${name}`,
             text: `Imię: ${name}
 Email: ${email}
