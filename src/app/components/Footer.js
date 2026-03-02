@@ -90,7 +90,7 @@ export default function Footer() {
                     <div className='contact_info'>
                         <div className='contact_info_links'>
                             <p>{t('footer_text2')}</p>
-                            <a href="mailto:jakub.kmiecik96@gmail.com"><p>jakub.kmiecik96@gmail.com</p></a>
+                            <a href="mailto:sebastian.larma@slasesystems.com"><p>sebastian.larma@slasesystems.com</p></a>
                         </div>
                         <div className='contact_info_links'>
                             <p>{t('footer_text3')}</p>
