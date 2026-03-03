@@ -402,7 +402,7 @@ export default function HomePage() {
                         loop
                         muted
                         playsInline
-                        preload="none"
+                        preload="metadata"
                         poster={posterSrc}
                         // fetchPriority="high"
                     >
