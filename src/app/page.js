@@ -251,16 +251,6 @@ export default function HomePage() {
                 {type: 'image', src: photo5},
             ]
         },
-        offshore_projects: {
-            interval: 5000,
-            slides: [
-                {type: 'image', src: photo1},
-                {type: 'image', src: photo2},
-                {type: 'image', src: photo3},
-                {type: 'image', src: photo4},
-                {type: 'image', src: photo5},
-            ]
-        },
         web_applications: {
             interval: 5000,
             slides: [
@@ -383,6 +373,23 @@ export default function HomePage() {
 
     const allLogos = [...logos, ...logos];
 
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.muted = true;
+        video.playsInline = true;
+
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                console.log("Autoplay blocked by Safari");
+            });
+        }
+    }, [local]);
+
     const videoSrc = useMemo(() => {
         return `/videos/opening-${local}.mp4`
     }, [local])
@@ -396,6 +403,7 @@ export default function HomePage() {
             <div className="opening">
                 <div ref={sec1Ref} className={`open ${isSec1Hidden ? "hidden" : ""}`}>
                     <video
+                        ref={videoRef}
                         key={local}
                         className="opening_video"
                         autoPlay
@@ -593,23 +601,6 @@ export default function HomePage() {
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.deep_locust.slides} interval={carousels.deep_locust.interval} />
-                            </div>
-                            {/*Offshore Projects*/}
-                            <div ref={sec15Ref} className={`open projects_content ${isSec15Hidden ? "hidden" : ""}`}>
-                                <div className='projects_text'>
-                                    <h3>{t("projects_title8")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
-                                    <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
-                                    </div>
-                                </div>
-                                <Carousel slides={carousels.offshore_projects.slides} interval={carousels.offshore_projects.interval} />
                             </div>
                             {/*Web applications*/}
                             <div ref={sec16Ref} className={`open projects_content ${isSec16Hidden ? "hidden" : ""}`}>
