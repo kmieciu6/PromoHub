@@ -106,7 +106,6 @@ footer {
                 .contact_info_links {
                     display: flex;
                     margin-top: 2rem;
-                    width: 320px;
 
                     @include mobile {
                         width: 280px;

@@ -1,6 +1,6 @@
 # Promo Hub
 
-Live: https://netlify.app
+Live: https://promohub.netlify.app/
 
 ## Description
 
@@ -9,10 +9,10 @@ The project focuses on performance optimization, modular component architecture,
 
 ## Stack
 - Next.js (App Router)
-- React 
+- React
 - REST API (custom API route)
 - Nodemailer (email handling)
-- reCAPTCHA v2 verification 
+- reCAPTCHA v2 verification
 - SCSS (modular styling)
 - Docker (production setup)
 - Netlify (live demo)

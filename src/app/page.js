@@ -19,6 +19,8 @@ import sitemap from '../../public/icons/sitemap.svg';
 import cube from '../../public/icons/cube-3d-sphere.svg';
 import git from '../../public/icons/git-pull-request.svg';
 import video from '../../public/icons/video.svg';
+import {useProjectsScrollLock} from "@/app/hooks/useProjectsScrollLock";
+import {ProjectsEscapeButtonBack, ProjectsEscapeButtonNext} from "@/app/components/ProjectsEscapeButtons";
 
 function useMounted() {
     return useSyncExternalStore(
@@ -53,7 +55,7 @@ function useIsTouchDevice() {
 }
 
 export default function HomePage() {
-    const { t } = useTranslation("common");
+    const { t, local } = useTranslation("common");
     const [sec1Ref, isSec1Hidden] = useIntersectionHide();
     const [sec2Ref, isSec2Hidden] = useIntersectionHide();
     const [sec3Ref, isSec3Hidden] = useIntersectionHide();
@@ -279,7 +281,6 @@ export default function HomePage() {
         { key: "simulation_environment", titleKey: "projects_title5", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.simulation_environment },
         { key: "interferometer", titleKey: "projects_title6", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.interferometer },
         { key: "deep_locust", titleKey: "projects_title7", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.deep_locust },
-        { key: "offshore_projects", titleKey: "projects_title8", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.offshore_projects },
         { key: "web_applications", titleKey: "projects_title9", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.web_applications },
     ]), [carousels]);
 
@@ -328,137 +329,14 @@ export default function HomePage() {
     const isTouchDevice = useIsTouchDevice();
     const isTouch = mounted && isTouchDevice;
 
-    useEffect(() => {
-        if (isTouch) return;
-        const el = projectsLayoutRef.current;
-        if (!el) return;
-
-        const DELTA_THRESHOLD = 180;  // im większe tym mniej czułe
-        const COOLDOWN_MS = 1200;     // blokada na czas animacji
-        const RESET_GAP_MS = 180;
-        const CENTER_TOP = 0.15;     // kiedy uznajemy sekcję za "aktywną"
-        const CENTER_BOT = 0.85;
-
-        let acc = 0;
-        let lastT = 0;
-        let cooldownUntil = 0;
-
-        const inProjectsCenter = () => {
-            const wrap = projectsWrapRef.current;
-            if (!wrap) return false;
-            const r = wrap.getBoundingClientRect();
-            const vh = window.innerHeight;
-            return r.top < vh * CENTER_TOP && r.bottom > vh * CENTER_BOT;
-        };
-
-        const onWheel = (e) => {
-            if (projectsDisabledRef.current) return;
-
-            const swiper = swiperRef.current;
-            if (!swiper) return;
-            if (!inProjectsCenter()) return;
-
-            const now = performance.now();
-            const rawDir = e.deltaY > 0 ? 1 : -1;
-
-            const atStart = swiper.isBeginning;
-            const atEnd = swiper.isEnd;
-
-            // ✅ NAJPIERW: jeśli na krawędzi i chcesz wyjść -> NIE blokuj strony
-            if ((rawDir < 0 && atStart) || (rawDir > 0 && atEnd)) {
-                acc = 0;
-                return; // brak preventDefault = strona scrolluje normalnie i "wychodzisz"
-            }
-
-            // ✅ DOPIERO TERAZ: blokujemy stronę i robimy 1 gest = 1 slide
-            e.preventDefault();
-
-            if (now < cooldownUntil) return;
-
-            if (now - lastT > RESET_GAP_MS) acc = 0;
-            lastT = now;
-
-            acc += e.deltaY;
-
-            if (Math.abs(acc) < DELTA_THRESHOLD) return;
-
-            const dir = acc > 0 ? 1 : -1;
-            acc = 0;
-            cooldownUntil = now + COOLDOWN_MS;
-
-            if (dir > 0) swiper.slideNext();
-            else swiper.slidePrev();
-        };
-
-        el.addEventListener("wheel", onWheel, { passive: false });
-        return () => el.removeEventListener("wheel", onWheel);
-    }, [isTouch]);
-
-    useEffect(() => {
-        if (isTouch) return;
-        const el = projectsWrapRef.current;
-        if (!el) return;
-
-        let snappedOnce = false;
-        const headerOffset = 90;
-
-        const onScroll = () => {
-            if (projectsDisabledRef.current) return;
-            const r = el.getBoundingClientRect();
-            const vh = window.innerHeight;
-
-            // 🟢 sekcja realnie "wchodzi" w viewport
-            const entering =
-                r.top <= vh * 0.4 && r.bottom >= vh * 0.6;
-
-            if (entering && !snappedOnce) {
-                snappedOnce = true;
-
-                const top =
-                    el.getBoundingClientRect().top +
-                    window.scrollY -
-                    headerOffset;
-
-                window.scrollTo({ top, behavior: "smooth" });
-            }
-
-            // 🔓 reset DOPIERO gdy Projects całkiem poza ekranem
-            const fullyOut =
-                r.bottom < -vh * 0.5 ||
-                r.top > vh * 1.5;
-
-            if (fullyOut) snappedOnce = false;
-        };
-
-        onScroll();
-        window.addEventListener("scroll", onScroll, { passive: true });
-        window.addEventListener("resize", onScroll);
-
-        return () => {
-            window.removeEventListener("scroll", onScroll);
-            window.removeEventListener("resize", onScroll);
-        };
-    }, [isTouch]);
-
-    useEffect(() => {
-        if (!isTouch) return;
-
-        const el = projectsWrapRef.current;
-        if (!el) return;
-
-        const io = new IntersectionObserver(
-            ([entry]) => {
-                el.style.setProperty("--bgAlpha", entry.isIntersecting ? "1" : "0");
-            },
-            {
-                root: null,
-                threshold: 0.01,
-            }
-        );
-
-        io.observe(el);
-        return () => io.disconnect();
-    }, [isTouch]);
+    useProjectsScrollLock({
+        isEnabled: !isTouch,
+        swiperRef,
+        projectsWrapRef,
+        projectsLayoutRef,
+        projectsDisabledRef,
+        headerOffset: 90,
+    });
 
     const logos = [
         {
@@ -505,28 +383,37 @@ export default function HomePage() {
 
     const allLogos = [...logos, ...logos];
 
+    const videoSrc = useMemo(() => {
+        return `/videos/opening-${local}.mp4`
+    }, [local])
+
+    const posterSrc = useMemo(() => {
+        return `/videos/opening-poster-${local}.webp`
+    }, [local])
+
     return (
         <section className="home_page page" id='home'>
             <div className="opening">
                 <div ref={sec1Ref} className={`open ${isSec1Hidden ? "hidden" : ""}`}>
                     <video
+                        key={local}
                         className="opening_video"
                         autoPlay
                         loop
                         muted
                         playsInline
                         preload="none"
-                        poster="/videos/opening-poster.webp"
+                        poster={posterSrc}
                         // fetchPriority="high"
                     >
-                        <source src="/videos/opening.mp4" type="video/mp4" />
+                        <source src={videoSrc} type="video/mp4" />
                     </video>
-                    <div className="opening_text">
-                        <h1>{t("opening_title1")}</h1>
-                        <div key={animKey}>
-                            <h2>{current.h2}</h2>
-                        </div>
-                    </div>
+                    {/*<div className="opening_text">*/}
+                    {/*    <h1>{t("opening_title1")}</h1>*/}
+                    {/*    <div key={animKey}>*/}
+                    {/*        <h2>{current.h2}</h2>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
 
@@ -789,6 +676,7 @@ export default function HomePage() {
 
                                 {/* PRAWA STRONA – NAV (STAŁY) */}
                                 <aside className="projects_nav">
+                                    <ProjectsEscapeButtonBack wrapRef={projectsWrapRef}/>
                                     <h3>
                                         {t("projects_nav_title")}
                                     </h3>
@@ -806,6 +694,7 @@ export default function HomePage() {
                                             </button>
                                         ))}
                                     </div>
+                                    <ProjectsEscapeButtonNext wrapRef={projectsWrapRef}/>
                                 </aside>
                             </div>
                         </div>
@@ -814,10 +703,10 @@ export default function HomePage() {
                 )}
             </div>
 
-            <div className='cooperation' id='cooperation'>
+            <div className='our_partners' id='our_partners'>
                 <div ref={sec17Ref} className={`open ${isSec17Hidden ? "hidden" : ""}`}>
                     <h1>
-                        {t("cooperation")}
+                        {t("our_partners")}
                     </h1>
                     <div className="logo_slider">
                         <div className="logo_slider-track">

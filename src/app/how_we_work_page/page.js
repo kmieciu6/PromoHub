@@ -7,7 +7,7 @@ export default function HowWeWorkPage() {
     const [sec1Ref, isSec1Hidden] = useIntersectionHide();
 
     return (
-        <section className='how_we_work_page page'>
+        <section className='how_we_work_page page sub_page'>
             <div ref={sec1Ref} className={`how_we_work_container open ${isSec1Hidden ? 'hidden' : ''}`}>
                 <h1>{t('how_we_work')}</h1>
             </div>

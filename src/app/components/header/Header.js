@@ -44,6 +44,11 @@ const SUBPAGE_MENUS = {
             services_dd: ["cybersecurity"],
         }
     },
+    "/sound_engineering_page": {
+        removeDropdownItems: {
+            services_dd: ["sound_engineering"],
+        }
+    },
     "/educational_simulation_game_page": {
         removeDropdownItems: {
             projects_dd: ["educational_simulation_game"],
@@ -54,6 +59,21 @@ const SUBPAGE_MENUS = {
             projects_dd: ["osc_application"],
         }
     },
+    "/wampir_page": {
+        removeDropdownItems: {
+            projects_dd: ["wampir"],
+        }
+    },
+    "/deep_locust_page": {
+        removeDropdownItems: {
+            projects_dd: ["deep_locust"],
+        }
+    },
+    "/subcontracting_page": {
+        removeDropdownItems: {
+            projects_dd: ["subcontracting"],
+        }
+    },
     "/who_we_are_page": {
         removeDropdownItems: {
             about_dd: ["who_we_are"],
@@ -62,11 +82,6 @@ const SUBPAGE_MENUS = {
     "/how_we_work_page": {
         removeDropdownItems: {
             about_dd: ["how_we_work"],
-        }
-    },
-    "/our_partners_page": {
-        removeDropdownItems: {
-            about_dd: ["our_partners"],
         }
     },
     "/cooperation_page": {
@@ -102,18 +117,21 @@ export default function Header() {
         { id: "saas_applications", key: "saas_applications", label: t("saas_applications"), href: "/saas_applications_page" },
         { id: "graphics_visualizations", key: "graphics_visualizations", label: t("graphics_visualizations"), href: "/graphics_visualizations_page" },
         { id: "cybersecurity", key: "cybersecurity", label: t("cybersecurity"), href: "/cybersecurity_page" },
+        { id: "sound_engineering", key: "sound_engineering", label: t("sound_engineering"), href: "/sound_engineering_page" },
     ], [t, isHome]);
 
     const projectsSite = useMemo(() => [
         { id: "projects", key: "projects", label: t("projects"), href: isHome ? "#projects" : "/",},
         { id: "educational_simulation_game", key: "educational_simulation_game", label: t("educational_simulation_game"), href: "/educational_simulation_game_page" },
         { id: "osc_application", key: "osc_application", label: t("osc_application"), href: "/osc_application_page" },
+        { id: "wampir", key: "wampir", label: t("wampir"), href: "/wampir_page" },
+        { id: "deep_locust", key: "deep_locust", label: t("deep_locust"), href: "/deep_locust_page" },
+        { id: "subcontracting", key: "subcontracting", label: t("subcontracting"), href: "/subcontracting_page" },
     ], [t, isHome]);
 
     const aboutSite = useMemo(() => [
         { id: "who_we_are", key: "who_we_are", label: t("who_we_are"), href: "/who_we_are_page" },
         { id: "how_we_work", key: "how_we_work", label: t("how_we_work"), href: "/how_we_work_page" },
-        { id: "our_partners", key: "our_partners", label: t("our_partners"), href: "/our_partners_page" },
         { id: "cooperation", key: "cooperation", label: t("cooperation"), href: "/cooperation_page" },
     ], [t]);
 
@@ -134,7 +152,7 @@ export default function Header() {
             items: projectsSite,
         },
         // { type: "link", key: "projects", label: t("projects"), href: "#projects" },
-        { type: "link", key: "cooperation", label: t("cooperation"), href: "#cooperation" },
+        { type: "link", key: "our_partners", label: t("our_partners"), href: "#cooperation" },
         {
             type: "dropdown",
             key: "about_dd",
@@ -178,7 +196,7 @@ export default function Header() {
     const LANGUAGES = [
         { code: "pl", label: "PL" },
         { code: "en", label: "EN" },
-        { code: "de", label: "DE" },
+        // { code: "de", label: "DE" },
     ];
 
     const currentLang = LANGUAGES.find((l) => l.code === local) || LANGUAGES[1];
@@ -365,9 +383,9 @@ export default function Header() {
                             <a
                                 type="button"
                                 className="nav-link"
-                                onClick={(e) => smartNavigate(e,"#cooperation")}
+                                onClick={(e) => smartNavigate(e,"#our_partners")}
                             >
-                                <h4>{t("cooperation")}</h4>
+                                <h4>{t("our_partners")}</h4>
                             </a>
                             {/*<a className="nav-link" href="#" onClick={scrollToId("how_we_work")}>*/}
                             {/*    <h4>{t("how_we_work")}</h4>*/}
@@ -435,9 +453,9 @@ export default function Header() {
                                                 goHomeAndScroll("projects");
                                                 return;
                                             }
-                                            if (item.key === "cooperation") {
+                                            if (item.key === "our_partners") {
                                                 e.preventDefault();
-                                                goHomeAndScroll("cooperation");
+                                                goHomeAndScroll("our_partners");
                                                 return;
                                             }
                                             smartNavigate(e, item.href);

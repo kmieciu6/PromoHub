@@ -7,7 +7,7 @@ export default function CooperationPage() {
     const [sec1Ref, isSec1Hidden] = useIntersectionHide();
 
     return (
-        <section className='cooperation_page page'>
+        <section className='cooperation_page page sub_page'>
             <div ref={sec1Ref} className={`cooperation_container open ${isSec1Hidden ? 'hidden' : ''}`}>
                 <h1>{t('cooperation')}</h1>
             </div>

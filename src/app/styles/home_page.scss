@@ -112,37 +112,37 @@
                 transform: translateZ(0);
             }
 
-            .opening_text {
-                position: relative;
-                width: 100%;
-                z-index: 2;
-                border-radius: 16px;
-                backdrop-filter: blur(5px);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-
-                @include desktop {
-                    width: 650px;
-                }
-
-                h1 {
-                    font-weight: 800;
-                    text-transform: uppercase;
-                    margin-bottom: 1rem;
-                }
-
-                h1, h2 {
-                    width: 100%;
-                    color: $main-dark-color;
-                    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-                    padding: 1rem;
-                    text-align: center;
-                }
-
-                div {
-                    animation: openingTextIn 500ms ease-out both;
-                    will-change: transform, opacity;
-                }
-            }
+            //.opening_text {
+            //    position: relative;
+            //    width: 100%;
+            //    z-index: 2;
+            //    border-radius: 16px;
+            //    backdrop-filter: blur(5px);
+            //    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            //
+            //    @include desktop {
+            //        width: 650px;
+            //    }
+            //
+            //    h1 {
+            //        font-weight: 800;
+            //        text-transform: uppercase;
+            //        margin-bottom: 1rem;
+            //    }
+            //
+            //    h1, h2 {
+            //        width: 100%;
+            //        color: $main-dark-color;
+            //        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            //        padding: 1rem;
+            //        text-align: center;
+            //    }
+            //
+            //    div {
+            //        animation: openingTextIn 500ms ease-out both;
+            //        will-change: transform, opacity;
+            //    }
+            //}
         }
 
         @keyframes openingTextIn {
@@ -397,7 +397,7 @@
 
             @include desktop {
                 padding: 0 3rem;
-                max-width: 600px;
+                //max-width: 600px;
                 margin: 0;
             }
 
@@ -442,13 +442,17 @@
         .carousel {
             position: relative;
             z-index: 1;
-            width: 100%;
-            height: 500px;
             overflow: hidden;
+            width: 60%;
+            height: 600px;
 
-            @include desktop {
-                width: 60%;
-                height: 600px;
+            @media (max-width: 1380px) {
+                width: 80%;
+                height: 400px;
+            }
+
+            @include mobile {
+                width: 100% !important;
             }
 
             .carousel-inner {
@@ -613,6 +617,10 @@
                         max-width: 1600px;
                         transition: 2s;
 
+                        .projects_text {
+                            max-width: 600px;
+                        }
+
                         &:hover {
                             padding: 0 2rem;
                         }
@@ -626,6 +634,29 @@
         }
 
         &.is-desktop {
+
+            .projects_escapeBtn {
+                margin: 2rem 0;
+                font-size: 50px;
+                transition: 1s;
+                animation: projectsPulse 5s infinite;
+
+                &:hover {
+                    @include desktop {
+                        color: $accent-color !important;
+                    }
+                }
+
+                @keyframes projectsPulse {
+                    0%   { transform: scale(1); color: inherit; }
+                    92%  { transform: scale(1); color: inherit; }
+
+                    95%  { transform: scale(1.5); color: $accent-color; }
+                    97%  { transform: scale(1.5); color: $accent-color; }
+
+                    100% { transform: scale(1); color: inherit; }
+                }
+            }
 
             h1 {
                 text-align: center;
@@ -677,10 +708,22 @@
                     transform 520ms cubic-bezier(.2, .8, .2, 1),
                     filter 520ms ease;
                     will-change: opacity, transform, filter;
+                    flex-direction: row;
+
+                    @media (max-width: 1380px) {
+                        flex-direction: column;
+                        max-width: 100%;
+                        align-items: center;
+                    }
 
                     .projects_text {
                         width: 40%;
                         margin: -4rem 0 3rem 0;
+
+                        @media (max-width: 1380px) {
+                            width: 100%;
+                            margin: 0;
+                        }
                     }
                 }
             }
@@ -814,7 +857,7 @@
         }
     }
 
-    .cooperation {
+    .our_partners {
         position: relative;
         width: 100%;
         height: 50vh;
