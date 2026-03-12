@@ -24,6 +24,11 @@ const SUBPAGE_MENUS = {
             services_dd: ["desktop_applications"],
         }
     },
+    "/web_applications_page": {
+        removeDropdownItems: {
+            services_dd: ["web_applications"],
+        }
+    },
     "/simulators_page": {
         removeDropdownItems: {
             services_dd: ["simulators"],
@@ -113,6 +118,7 @@ export default function Header() {
         { id: "consulting", key: "consulting", label: t("consulting"), href: "/consulting_page" },
         { id: "mobile_applications", key: "mobile_applications", label: t("mobile_applications"), href: "/mobile_applications_page" },
         { id: "desktop_applications", key: "desktop_applications", label: t("desktop_applications"), href: "/desktop_applications_page" },
+        { id: "web_applications", key: "web_applications", label: t("web_applications"), href: "/web_applications_page" },
         { id: "simulators", key: "simulators", label: t("simulators"), href: "/simulators_page" },
         { id: "saas_applications", key: "saas_applications", label: t("saas_applications"), href: "/saas_applications_page" },
         { id: "graphics_visualizations", key: "graphics_visualizations", label: t("graphics_visualizations"), href: "/graphics_visualizations_page" },

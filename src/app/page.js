@@ -8,17 +8,31 @@ import photo2 from "../../public/assets/infrastructure.png";
 import photo3 from "../../public/assets/studios.png";
 import photo4 from "../../public/assets/vr.png";
 import photo5 from "../../public/assets/systems.png";
+import cosmos1 from "../../public/cosmos/Ziemia 02.png";
+import cosmos2 from "../../public/cosmos/Wenus 03.png";
+import cosmos3 from "../../public/cosmos/Ziemia 10.png";
+import cosmos4 from "../../public/cosmos/IMG_6598.jpg";
+import cosmos5 from "../../public/cosmos/IMG_6596.jpg";
+import cosmos6 from "../../public/cosmos/IMG_6600.jpg";
+import cosmos7 from "../../public/cosmos/IMG_6601.jpg";
+import cosmos8 from "../../public/cosmos/Ziemia 07.png";
+import cosmos9 from "../../public/cosmos/Wenus 02.png";
+import cosmos10 from "../../public/cosmos/Ziemia 09.png";
 import Carousel from "@/app/components/Carousel";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Mousewheel} from "swiper/modules";
 import "swiper/css";
 import { useSyncExternalStore } from "react";
 import Image from "next/image";
+import consulting from '../../public/icons/load-balancer.svg';
+import mobile from '../../public/icons/device-mobile.svg';
+import desktop from '../../public/icons/app-window.svg';
 import web from '../../public/icons/world-www.svg';
-import sitemap from '../../public/icons/sitemap.svg';
 import cube from '../../public/icons/cube-3d-sphere.svg';
-import git from '../../public/icons/git-pull-request.svg';
+import sitemap from '../../public/icons/sitemap.svg';
 import video from '../../public/icons/video.svg';
+import lock from '../../public/icons/lock.svg';
+import sound from '../../public/icons/wave-sine.svg';
 import {useProjectsScrollLock} from "@/app/hooks/useProjectsScrollLock";
 import {ProjectsEscapeButtonBack, ProjectsEscapeButtonNext} from "@/app/components/ProjectsEscapeButtons";
 
@@ -73,6 +87,8 @@ export default function HomePage() {
     const [sec15Ref, isSec15Hidden] = useIntersectionHide();
     const [sec16Ref, isSec16Hidden] = useIntersectionHide();
     const [sec17Ref, isSec17Hidden] = useIntersectionHide();
+    const [sec18Ref, isSec18Hidden] = useIntersectionHide();
+    const [sec19Ref, isSec19Hidden] = useIntersectionHide();
     const projectsDisabledRef = useRef(false);
     const smoothScrollRef = useRef(null);
 
@@ -194,11 +210,16 @@ export default function HomePage() {
         cosmos: {
             interval: 5000,
             slides: [
-                {type: 'image', src: photo1},
-                {type: 'image', src: photo2},
-                {type: 'image', src: photo3},
-                {type: 'image', src: photo4},
-                {type: 'image', src: photo5}
+                {type: 'image', src: cosmos1},
+                {type: 'image', src: cosmos2},
+                {type: 'image', src: cosmos3},
+                {type: 'image', src: cosmos4},
+                {type: 'image', src: cosmos5},
+                {type: 'image', src: cosmos6},
+                {type: 'image', src: cosmos7},
+                {type: 'image', src: cosmos8},
+                {type: 'image', src: cosmos9},
+                {type: 'image', src: cosmos10},
             ]
         },
         virtual_studio: {
@@ -432,62 +453,101 @@ export default function HomePage() {
                     </div>
                     <div className='services_container_wrapper'>
                         <div ref={sec3Ref} className={`open services_container ${isSec3Hidden ? "hidden" : ""}`}>
-                            <Image src={web} alt='motion' className='img'/>
+                            <Image src={consulting} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title2")}</h2>
                                 <div className="divider"/>
-                                <p>{t("services_text")}</p>
+                                <p>{t("services_text1")}</p>
                                 <div className='services_link'>
-                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                    <a href='/'>{t('see_project')} →</a>
+                                    <a href='/consulting_page'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec4Ref} className={`open services_container ${isSec4Hidden ? "hidden" : ""}`}>
-                            <Image src={sitemap} alt='motion' className='img'/>
+                            <Image src={mobile} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title3")}</h2>
                                 <div className="divider"/>
-                                <p>{t("services_text")}</p>
+                                <p>{t("services_text2")}</p>
                                 <div className='services_link'>
-                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                    <a href='/'>{t('see_project')} →</a>
+                                    <a href='/mobile_applications_page'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec5Ref} className={`open services_container ${isSec5Hidden ? "hidden" : ""}`}>
-                            <Image src={cube} alt='motion' className='img'/>
+                            <Image src={desktop} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title4")}</h2>
                                 <div className="divider"/>
-                                <p>{t("services_text")}</p>
+                                <p>{t("services_text3")}</p>
                                 <div className='services_link'>
-                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                    <a href='/'>{t('see_project')} →</a>
+                                    <a href='/desktop_applications_page'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec6Ref} className={`open services_container ${isSec6Hidden ? "hidden" : ""}`}>
-                            <Image src={git} alt='motion' className='img'/>
+                            <Image src={web} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title5")}</h2>
                                 <div className="divider"/>
-                                <p>{t("services_text")}</p>
+                                <p>{t("services_text4")}</p>
                                 <div className='services_link'>
-                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                    <a href='/'>{t('see_project')} →</a>
+                                    <a href='/web applications_page'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
                         <div ref={sec7Ref} className={`open services_container ${isSec7Hidden ? "hidden" : ""}`}>
-                            <Image src={video} alt='motion' className='img'/>
+                            <Image src={cube} alt='motion' className='img'/>
                             <div className='services_text'>
                                 <h2>{t("services_title6")}</h2>
                                 <div className="divider"/>
-                                <p>{t("services_text")}</p>
+                                <p>{t("services_text5")}</p>
                                 <div className='services_link'>
-                                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                    <a href='/'>{t('see_project')} →</a>
+                                    <a href='/simulators_page'>{t('see_project')} →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec8Ref} className={`open services_container ${isSec8Hidden ? "hidden" : ""}`}>
+                            <Image src={sitemap} alt='motion' className='img'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title7")}</h2>
+                                <div className="divider"/>
+                                <p>{t("services_text6")}</p>
+                                <div className='services_link'>
+                                    <a href='/saas_applications_page'>{t('see_project')} →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec9Ref} className={`open services_container ${isSec9Hidden ? "hidden" : ""}`}>
+                            <Image src={video} alt='motion' className='img'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title8")}</h2>
+                                <div className="divider"/>
+                                <p>{t("services_text7")}</p>
+                                <div className='services_link'>
+                                    <a href='/graphics_visualizations_page'>{t('see_project')} →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec10Ref} className={`open services_container ${isSec10Hidden ? "hidden" : ""}`}>
+                            <Image src={lock} alt='motion' className='img'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title9")}</h2>
+                                <div className="divider"/>
+                                <p>{t("services_text8")}</p>
+                                <div className='services_link'>
+                                    <a href='/cybersecurity_page'>{t('see_project')} →</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div ref={sec11Ref} className={`open services_container ${isSec11Hidden ? "hidden" : ""}`}>
+                            <Image src={sound} alt='motion' className='img'/>
+                            <div className='services_text'>
+                                <h2>{t("services_title10")}</h2>
+                                <div className="divider"/>
+                                <p>{t("services_text9")}</p>
+                                <div className='services_link'>
+                                    <a href='/sound_engineering_page'>{t('see_project')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -500,11 +560,11 @@ export default function HomePage() {
                 {isTouch ? (
                     <>
                         <div className='projects_container'>
-                            <div ref={sec8Ref} className={`open ${isSec8Hidden ? "hidden" : ""}`}>
+                            <div ref={sec11Ref} className={`open ${isSec11Hidden ? "hidden" : ""}`}>
                                 <h1>{t("projects_title1")}</h1>
                             </div>
                             {/*Cosmos*/}
-                            <div ref={sec9Ref} className={`open projects_content ${isSec9Hidden ? "hidden" : ""}`}>
+                            <div ref={sec12Ref} className={`open projects_content ${isSec12Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h2>{t("projects_title2")}</h2>
                                     <p>{renderAccents(t("projects_text1"))}</p>
@@ -518,7 +578,7 @@ export default function HomePage() {
                                 <Carousel slides={carousels.cosmos.slides} interval={carousels.cosmos.interval} />
                             </div>
                             {/*Virtual Studio*/}
-                            <div ref={sec10Ref} className={`open projects_content ${isSec10Hidden ? "hidden" : ""}`}>
+                            <div ref={sec13Ref} className={`open projects_content ${isSec13Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title3")}</h3>
                                     <p>{renderAccents(t("projects_text"))}</p>
@@ -535,7 +595,7 @@ export default function HomePage() {
                                 <Carousel slides={carousels.virtual_studio.slides} interval={carousels.virtual_studio.interval} />
                             </div>
                             {/*Wind Turbine Game*/}
-                            <div ref={sec11Ref} className={`open projects_content ${isSec11Hidden ? "hidden" : ""}`}>
+                            <div ref={sec14Ref} className={`open projects_content ${isSec14Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title4")}</h3>
                                     <p>{renderAccents(t("projects_text"))}</p>
@@ -552,7 +612,7 @@ export default function HomePage() {
                                 <Carousel slides={carousels.wind_turbine_game.slides} interval={carousels.wind_turbine_game.interval} />
                             </div>
                             {/*Application for managing the simulation environment*/}
-                            <div ref={sec12Ref} className={`open projects_content ${isSec12Hidden ? "hidden" : ""}`}>
+                            <div ref={sec15Ref} className={`open projects_content ${isSec15Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title5")}</h3>
                                     <p>{renderAccents(t("projects_text"))}</p>
@@ -569,7 +629,7 @@ export default function HomePage() {
                                 <Carousel slides={carousels.simulation_environment.slides} interval={carousels.simulation_environment.interval} />
                             </div>
                             {/*Interferometer*/}
-                            <div ref={sec13Ref} className={`open projects_content ${isSec13Hidden ? "hidden" : ""}`}>
+                            <div ref={sec16Ref} className={`open projects_content ${isSec16Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title6")}</h3>
                                     <p>{renderAccents(t("projects_text"))}</p>
@@ -586,7 +646,7 @@ export default function HomePage() {
                                 <Carousel slides={carousels.interferometer.slides} interval={carousels.interferometer.interval} />
                             </div>
                             {/*Deep Locust*/}
-                            <div ref={sec14Ref} className={`open projects_content ${isSec14Hidden ? "hidden" : ""}`}>
+                            <div ref={sec17Ref} className={`open projects_content ${isSec17Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title7")}</h3>
                                     <p>{renderAccents(t("projects_text"))}</p>
@@ -603,7 +663,7 @@ export default function HomePage() {
                                 <Carousel slides={carousels.deep_locust.slides} interval={carousels.deep_locust.interval} />
                             </div>
                             {/*Web applications*/}
-                            <div ref={sec16Ref} className={`open projects_content ${isSec16Hidden ? "hidden" : ""}`}>
+                            <div ref={sec18Ref} className={`open projects_content ${isSec18Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title9")}</h3>
                                     <p>{renderAccents(t("projects_text"))}</p>
@@ -695,7 +755,7 @@ export default function HomePage() {
             </div>
 
             <div className='our_partners' id='our_partners'>
-                <div ref={sec17Ref} className={`open ${isSec17Hidden ? "hidden" : ""}`}>
+                <div ref={sec19Ref} className={`open ${isSec19Hidden ? "hidden" : ""}`}>
                     <h1>
                         {t("our_partners")}
                     </h1>

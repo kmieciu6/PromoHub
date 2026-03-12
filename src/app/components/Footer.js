@@ -94,13 +94,13 @@ export default function Footer() {
                         </div>
                         <div className='contact_info_links'>
                             <p>{t('footer_text3')}</p>
-                            <a href="tel:+48600340928"><p>+48 600 340 928</p></a>
+                            <a href="tel:+48605321101"><p>+48 605 321 101</p></a>
                         </div>
                         <div className='social_logos'>
-                            <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">
+                            <a href="https://www.linkedin.com/company/slase-systems/posts/?feedView=all" target="_blank" rel="noreferrer">
                                 <Image src={linkedin} alt='linkedin' className='img' />
                             </a>
-                            <a href="https://github.com/" target="_blank" rel="noreferrer">
+                            <a href="https://github.com/kmieciu6" target="_blank" rel="noreferrer">
                                 <Image src={github} alt='github' className='img' />
                             </a>
                         </div>
