@@ -459,7 +459,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text1")}</p>
                                 <div className='services_link'>
-                                    <a href='/consulting_page'>{t('see_project')} →</a>
+                                    <a href='/consulting_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -470,7 +470,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text2")}</p>
                                 <div className='services_link'>
-                                    <a href='/mobile_applications_page'>{t('see_project')} →</a>
+                                    <a href='/mobile_applications_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -481,7 +481,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text3")}</p>
                                 <div className='services_link'>
-                                    <a href='/desktop_applications_page'>{t('see_project')} →</a>
+                                    <a href='/desktop_applications_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -492,7 +492,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text4")}</p>
                                 <div className='services_link'>
-                                    <a href='/web applications_page'>{t('see_project')} →</a>
+                                    <a href='/web applications_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -503,7 +503,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text5")}</p>
                                 <div className='services_link'>
-                                    <a href='/simulators_page'>{t('see_project')} →</a>
+                                    <a href='/simulators_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -514,7 +514,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text6")}</p>
                                 <div className='services_link'>
-                                    <a href='/saas_applications_page'>{t('see_project')} →</a>
+                                    <a href='/saas_applications_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -525,7 +525,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text7")}</p>
                                 <div className='services_link'>
-                                    <a href='/graphics_visualizations_page'>{t('see_project')} →</a>
+                                    <a href='/graphics_visualizations_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -536,7 +536,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text8")}</p>
                                 <div className='services_link'>
-                                    <a href='/cybersecurity_page'>{t('see_project')} →</a>
+                                    <a href='/cybersecurity_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -547,7 +547,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text9")}</p>
                                 <div className='services_link'>
-                                    <a href='/sound_engineering_page'>{t('see_project')} →</a>
+                                    <a href='/sound_engineering_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
