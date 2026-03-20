@@ -206,18 +206,26 @@ export default function Header() {
     ];
 
     const currentLang = LANGUAGES.find((l) => l.code === local) || LANGUAGES[1];
+    const nextLang = LANGUAGES.find((l) => l.code !== local);
 
-    const languageItems = LANGUAGES
-        .filter((l) => l.code !== local)
-        .map((l) => ({
-            id: l.code,
-            label: <h4>{l.label}</h4>,
-            onSelect: () => {
-                changeLanguage(l.code);
-                // opcjonalnie: zamknij hamburger menu po wyborze języka
-                // closeMenu();
-            },
-        }));
+    const handleLanguageChange = () => {
+        if (!nextLang) return;
+
+        changeLanguage(nextLang.code);
+        closeMenu(); // jeśli chcesz zamknąć hamburger po zmianie
+    };
+
+    // const languageItems = LANGUAGES
+    //     .filter((l) => l.code !== local)
+    //     .map((l) => ({
+    //         id: l.code,
+    //         label: <h4>{l.label}</h4>,
+    //         onSelect: () => {
+    //             changeLanguage(l.code);
+    //             // opcjonalnie: zamknij hamburger menu po wyborze języka
+    //             // closeMenu();
+    //         },
+    //     }));
 
     const closeMenu = () => {
         setIsHidden(true);
@@ -343,8 +351,8 @@ export default function Header() {
                     className="nav-logo"
                     onClick={(e) => smartNavigate(e,"#home")}
                 >
-                    <Image src={logo_dark} alt='logo' className='logo_dark'/>
-                    <Image src={logo_light} alt='logo' className='logo_light' />
+                    <Image src={logo_dark} alt='logo' className='logo_dark' priority/>
+                    <Image src={logo_light} alt='logo' className='logo_light' priority/>
                 </a>
 
                 <button
@@ -472,11 +480,17 @@ export default function Header() {
                             })}
                         </>
                     )}
-                    <Dropdown
-                        forceClose={forceCloseKey}
-                        label={<h4>{currentLang.label} ▼</h4>}
-                        items={languageItems}
-                    />
+                    {/*<Dropdown*/}
+                    {/*    forceClose={forceCloseKey}*/}
+                    {/*    label={<h4>{currentLang.label} ▼</h4>}*/}
+                    {/*    items={languageItems}*/}
+                    {/*/>*/}
+                    <button className='dropdown__toggle' onClick={handleLanguageChange}>
+                        <h4>{currentLang.label}</h4>
+                    </button>
+
+
+
                     <ThemeToggle/>
                 </nav>
             </div>

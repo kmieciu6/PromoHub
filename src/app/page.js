@@ -3,11 +3,6 @@
 import useTranslation from "./hooks/useTranslation";
 import useIntersectionHide from "@/app/hooks/useIntersectionHide";
 import {useEffect, useMemo, useRef, useState} from "react";
-import photo1 from "../../public/assets/web.png";
-import photo2 from "../../public/assets/infrastructure.png";
-import photo3 from "../../public/assets/studios.png";
-import photo4 from "../../public/assets/vr.png";
-import photo5 from "../../public/assets/systems.png";
 import cosmos1 from "../../public/cosmos/Ziemia 02.png";
 import cosmos2 from "../../public/cosmos/Wenus 03.png";
 import cosmos3 from "../../public/cosmos/Ziemia 10.png";
@@ -18,6 +13,16 @@ import cosmos7 from "../../public/cosmos/IMG_6601.jpg";
 import cosmos8 from "../../public/cosmos/Ziemia 07.png";
 import cosmos9 from "../../public/cosmos/Wenus 02.png";
 import cosmos10 from "../../public/cosmos/Ziemia 09.png";
+import osc1 from "../../public/OSC/OSC02.jpg";
+import osc2 from "../../public/OSC/IMG_6592.jpg";
+import osc3 from "../../public/OSC/IMG_6593.jpg";
+import osc4 from "../../public/OSC/IMG_6594.jpg";
+import osc5 from "../../public/OSC/IMG_6589.jpg";
+import photo1 from "../../public/assets/web.png";
+import photo2 from "../../public/assets/infrastructure.png";
+import photo3 from "../../public/assets/studios.png";
+import photo4 from "../../public/assets/vr.png";
+import photo5 from "../../public/assets/systems.png";
 import Carousel from "@/app/components/Carousel";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Mousewheel} from "swiper/modules";
@@ -179,7 +184,7 @@ export default function HomePage() {
         return () => clearInterval(id);
     }, [slides.length]);
 
-    const current = slides[index]
+    // const current = slides[index]
 
     function renderAccents(text) {
         const parts = text.split(/(\[\[.*?]])/g);
@@ -245,14 +250,14 @@ export default function HomePage() {
         simulation_environment: {
             interval: 5000,
             slides: [
-                {type: 'image', src: photo1},
-                {type: 'image', src: photo2},
-                {type: 'image', src: photo3},
-                {type: 'image', src: photo4},
-                {type: 'image', src: photo5},
+                {type: 'image', src: osc1},
+                {type: 'image', src: osc2},
+                {type: 'image', src: osc3},
+                {type: 'image', src: osc4},
+                {type: 'image', src: osc5},
             ]
         },
-        interferometer: {
+        wampir: {
             interval: 5000,
             slides: [
                 {type: 'image', src: photo1},
@@ -286,13 +291,13 @@ export default function HomePage() {
     }), []);
 
     const projects = useMemo(() => ([
-        { key: "cosmos", titleKey: "projects_title2", text1:"projects_text1", text2:"projects_text2", seeHref: "/", carousel: carousels.cosmos },
-        { key: "virtual_studio", titleKey: "projects_title3", text1:"projects_text3", text2:"projects_text4", seeHref: "/", carousel: carousels.virtual_studio },
-        { key: "wind_turbine_game", titleKey: "projects_title4", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.wind_turbine_game },
-        { key: "simulation_environment", titleKey: "projects_title5", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.simulation_environment },
-        { key: "interferometer", titleKey: "projects_title6", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.interferometer },
-        { key: "deep_locust", titleKey: "projects_title7", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.deep_locust },
-        { key: "web_applications", titleKey: "projects_title9", text1:"projects_text", text2:"projects_text", seeHref: "/", carousel: carousels.web_applications },
+        { key: "cosmos", titleKey: "projects_title2", text1:"projects_text1", text2:"projects_text2", seeHref: "https://cosmos.slasesystems.com/", carousel: carousels.cosmos },
+        { key: "virtual_studio", titleKey: "projects_title3", text1:"projects_text3", text2:"projects_text4", seeHref: "", carousel: carousels.virtual_studio },
+        { key: "wind_turbine_game", titleKey: "projects_title4", text1:"projects_text5", text2:"projects_text6", seeHref: "/educational_simulation_game_page", carousel: carousels.wind_turbine_game },
+        { key: "simulation_environment", titleKey: "projects_title5", text1:"projects_text7", text2:"projects_text8", seeHref: "/osc_application_page", carousel: carousels.simulation_environment },
+        { key: "wampir", titleKey: "projects_title6", text1:"projects_text9", text2:"projects_text10", seeHref: "/wampir_page", carousel: carousels.wampir },
+        { key: "deep_locust", titleKey: "projects_title7", text1:"projects_text11", text2:"projects_text12", seeHref: "/deep_locust_page", carousel: carousels.deep_locust },
+        { key: "web_applications", titleKey: "projects_title8", text1:"projects_text13", text2:"projects_text14", seeHref: "", carousel: carousels.web_applications },
     ]), [carousels]);
 
     const [activeIndex, setActiveIndex] = useState(0);
@@ -492,7 +497,7 @@ export default function HomePage() {
                                 <div className="divider"/>
                                 <p>{t("services_text4")}</p>
                                 <div className='services_link'>
-                                    <a href='/web applications_page'>{t('more')} →</a>
+                                    <a href='/web_applications_page'>{t('more')} →</a>
                                 </div>
                             </div>
                         </div>
@@ -571,8 +576,7 @@ export default function HomePage() {
                                     <div className="divider"/>
                                     <p>{renderAccents(t("projects_text2"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        {/*<a href='/'>{t('see_project')} →</a>*/}
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.cosmos.slides} interval={carousels.cosmos.interval} />
@@ -581,15 +585,11 @@ export default function HomePage() {
                             <div ref={sec13Ref} className={`open projects_content ${isSec13Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title3")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <p>{renderAccents(t("projects_text3"))}</p>
                                     <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
+                                    <p>{renderAccents(t("projects_text4"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        {/*<a href='/'>{t('see_project')} →</a>*/}
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.virtual_studio.slides} interval={carousels.virtual_studio.interval} />
@@ -598,15 +598,11 @@ export default function HomePage() {
                             <div ref={sec14Ref} className={`open projects_content ${isSec14Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title4")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <p>{renderAccents(t("projects_text5"))}</p>
                                     <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
+                                    <p>{renderAccents(t("projects_text6"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        <a href='/educational_simulation_game_page'>{t('see_project')} →</a>
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.wind_turbine_game.slides} interval={carousels.wind_turbine_game.interval} />
@@ -615,49 +611,37 @@ export default function HomePage() {
                             <div ref={sec15Ref} className={`open projects_content ${isSec15Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title5")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <p>{renderAccents(t("projects_text7"))}</p>
                                     <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
+                                    <p>{renderAccents(t("projects_text8"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        <a href='/osc_application_page'>{t('see_project')} →</a>
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.simulation_environment.slides} interval={carousels.simulation_environment.interval} />
                             </div>
-                            {/*Interferometer*/}
+                            {/*Wampir*/}
                             <div ref={sec16Ref} className={`open projects_content ${isSec16Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title6")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <p>{renderAccents(t("projects_text9"))}</p>
                                     <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
+                                    <p>{renderAccents(t("projects_text10"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        <a href='/wampir_page'>{t('see_project')} →</a>
                                     </div>
                                 </div>
-                                <Carousel slides={carousels.interferometer.slides} interval={carousels.interferometer.interval} />
+                                <Carousel slides={carousels.wampir.slides} interval={carousels.wampir.interval} />
                             </div>
                             {/*Deep Locust*/}
                             <div ref={sec17Ref} className={`open projects_content ${isSec17Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title7")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <p>{renderAccents(t("projects_text11"))}</p>
                                     <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
+                                    <p>{renderAccents(t("projects_text12"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        <a href='/deep_locust_page'>{t('see_project')} →</a>
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.deep_locust.slides} interval={carousels.deep_locust.interval} />
@@ -666,15 +650,11 @@ export default function HomePage() {
                             <div ref={sec18Ref} className={`open projects_content ${isSec18Hidden ? "hidden" : ""}`}>
                                 <div className='projects_text'>
                                     <h3>{t("projects_title9")}</h3>
-                                    <p>{renderAccents(t("projects_text"))}</p>
+                                    <p>{renderAccents(t("projects_text13"))}</p>
                                     <div className="divider"/>
-                                    <p>{renderAccents(t("projects_text"))}</p>
-                                    <ul>
-                                        <li>{renderAccents(t("projects_text"))}</li>
-                                    </ul>
+                                    <p>{renderAccents(t("projects_text14"))}</p>
                                     <div className='projects_link'>
-                                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href='/'>{t('see_project')} →</a>
+                                        {/*<a href='/'>{t('see_project')} →</a>*/}
                                     </div>
                                 </div>
                                 <Carousel slides={carousels.web_applications.slides} interval={carousels.web_applications.interval} />
@@ -709,9 +689,11 @@ export default function HomePage() {
                                                             <div className="divider"/>
                                                             <p>{renderAccents(t(p.text2))}</p>
                                                         </div>
-                                                        <div className="projects_link">
-                                                            <a href={p.seeHref}>{t("see_project")} →</a>
-                                                        </div>
+                                                        {p.seeHref && (
+                                                            <div className="projects_link">
+                                                                <a href={p.seeHref}>{t("see_project")} →</a>
+                                                            </div>
+                                                        )}
                                                     </div>
 
                                                     <Carousel
