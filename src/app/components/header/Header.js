@@ -74,11 +74,6 @@ const SUBPAGE_MENUS = {
             projects_dd: ["deep_locust"],
         }
     },
-    "/subcontracting_page": {
-        removeDropdownItems: {
-            projects_dd: ["subcontracting"],
-        }
-    },
     "/who_we_are_page": {
         removeDropdownItems: {
             about_dd: ["who_we_are"],
@@ -132,7 +127,6 @@ export default function Header() {
         { id: "osc_application", key: "osc_application", label: t("osc_application"), href: "/osc_application_page" },
         { id: "wampir", key: "wampir", label: t("wampir"), href: "/wampir_page" },
         { id: "deep_locust", key: "deep_locust", label: t("deep_locust"), href: "/deep_locust_page" },
-        { id: "subcontracting", key: "subcontracting", label: t("subcontracting"), href: "/subcontracting_page" },
     ], [t, isHome]);
 
     const aboutSite = useMemo(() => [
