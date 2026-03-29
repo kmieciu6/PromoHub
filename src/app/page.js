@@ -13,6 +13,11 @@ import cosmos7 from "../../public/cosmos/IMG_6601.jpg";
 import cosmos8 from "../../public/cosmos/Ziemia 07.png";
 import cosmos9 from "../../public/cosmos/Wenus 02.png";
 import cosmos10 from "../../public/cosmos/Ziemia 09.png";
+import deep_locust1 from "../../public/assets/deep_locust1.png";
+import deep_locust2 from "../../public/assets/deep_locust2.png";
+import deep_locust3 from "../../public/assets/deep_locust3.jpg";
+import deep_locust4 from "../../public/assets/deep_locust4.jpg";
+import deep_locust5 from "../../public/assets/deep_locust5.png";
 import osc1 from "../../public/OSC/OSC02.jpg";
 import osc2 from "../../public/OSC/IMG_6592.jpg";
 import osc3 from "../../public/OSC/IMG_6593.jpg";
@@ -23,27 +28,27 @@ import photo2 from "../../public/assets/infrastructure.png";
 import photo3 from "../../public/assets/studios.png";
 import photo4 from "../../public/assets/vr.png";
 import photo5 from "../../public/assets/systems.png";
-// import deep_locust1 from "../../public/assets/deep_locust1.png";
-// import deep_locust2 from "../../public/assets/deep_locust2.PNG";
-// import deep_locust3 from "../../public/assets/deep_locust3.jpg";
-// import deep_locust4 from "../../public/assets/deep_locust4.jpg";
-// import deep_locust5 from "../../public/assets/deep_locust5.PNG";
+import virtual_studio1 from "../../public/assets/virtual_studio1.jpg";
+import virtual_studio2 from "../../public/assets/virtual_studio2.jpg";
+import virtual_studio3 from "../../public/assets/virtual_studio3.jpeg";
+import virtual_studio4 from "../../public/assets/virtual_studio4.jpg";
+import virtual_studio5 from "../../public/assets/virtual_studio5.jpg";
+import virtual_studio6 from "../../public/assets/virtual_studio6.jpg";
+import virtual_studio7 from "../../public/assets/virtual_studio7.jpg";
+import virtual_studio8 from "../../public/assets/virtual_studio8.jpg";
+import virtual_studio9 from "../../public/assets/virtual_studio9.jpg";
+import virtual_studio10 from "../../public/assets/virtual_studio10.jpg";
+import wampir1 from "../../public/assets/wampir1.png";
+import wampir2 from "../../public/assets/wampir2.png";
+import wampir3 from "../../public/assets/wampir3.png";
+import wampir4 from "../../public/assets/wampir4.png";
+import wampir5 from "../../public/assets/wampir5.png";
 import web1 from "../../public/assets/web1.png";
 import web2 from "../../public/assets/web2.png";
 import web3 from "../../public/assets/web3.png";
 import web4 from "../../public/assets/web4.png";
 import web5 from "../../public/assets/web5.png";
 import web6 from "../../public/assets/web6.png";
-// import virtual_studio1 from "../../public/assets/virtual_studio1.jpg";
-// import virtual_studio2 from "../../public/assets/virtual_studio2.jpg";
-// import virtual_studio3 from "../../public/assets/virtual_studio3.jpeg";
-// import virtual_studio4 from "../../public/assets/virtual_studio4.jpg";
-// import virtual_studio5 from "../../public/assets/virtual_studio5.jpg";
-// import virtual_studio6 from "../../public/assets/virtual_studio6.jpg";
-// import virtual_studio7 from "../../public/assets/virtual_studio7.jpg";
-// import virtual_studio8 from "../../public/assets/virtual_studio8.jpg";
-// import virtual_studio9 from "../../public/assets/virtual_studio9.jpg";
-// import virtual_studio10 from "../../public/assets/virtual_studio10.jpg";
 import Carousel from "@/app/components/Carousel";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Mousewheel} from "swiper/modules";
@@ -251,16 +256,16 @@ export default function HomePage() {
         virtual_studio: {
             interval: 5000,
             slides: [
-                // {type: 'image', src: virtual_studio1},
-                // {type: 'image', src: virtual_studio2},
-                // {type: 'image', src: virtual_studio3},
-                // {type: 'image', src: virtual_studio4},
-                // {type: 'image', src: virtual_studio5},
-                // {type: 'image', src: virtual_studio6},
-                // {type: 'image', src: virtual_studio7},
-                // {type: 'image', src: virtual_studio8},
-                // {type: 'image', src: virtual_studio9},
-                // {type: 'image', src: virtual_studio10},
+                {type: 'image', src: virtual_studio1},
+                {type: 'image', src: virtual_studio2},
+                {type: 'image', src: virtual_studio3},
+                {type: 'image', src: virtual_studio4},
+                {type: 'image', src: virtual_studio5},
+                {type: 'image', src: virtual_studio6},
+                {type: 'image', src: virtual_studio7},
+                {type: 'image', src: virtual_studio8},
+                {type: 'image', src: virtual_studio9},
+                {type: 'image', src: virtual_studio10},
             ]
         },
         wind_turbine_game: {
@@ -286,21 +291,21 @@ export default function HomePage() {
         wampir: {
             interval: 5000,
             slides: [
-                // {type: 'image', src: wampir1},
-                // {type: 'image', src: wampir2},
-                // {type: 'image', src: wampir3},
-                // {type: 'image', src: wampir4},
-                // {type: 'image', src: wampir5},
+                {type: 'image', src: wampir1},
+                {type: 'image', src: wampir2},
+                {type: 'image', src: wampir3},
+                {type: 'image', src: wampir4},
+                {type: 'image', src: wampir5},
             ]
         },
         deep_locust: {
             interval: 5000,
             slides: [
-                // {type: 'image', src: deep_locust1},
-                // {type: 'image', src: deep_locust2},
-                // {type: 'image', src: deep_locust3},
-                // {type: 'image', src: deep_locust4},
-                // {type: 'image', src: deep_locust5},
+                {type: 'image', src: deep_locust1},
+                {type: 'image', src: deep_locust2},
+                {type: 'image', src: deep_locust3},
+                {type: 'image', src: deep_locust4},
+                {type: 'image', src: deep_locust5},
             ]
         },
         web_applications: {
