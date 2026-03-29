@@ -51,6 +51,19 @@ import wind_turbine_game4 from "../../public/assets/wind_turbine_game4.png";
 import wind_turbine_game5 from "../../public/assets/wind_turbine_game5.png";
 import wind_turbine_game6 from "../../public/assets/wind_turbine_game6.png";
 import wind_turbine_game7 from "../../public/assets/wind_turbine_game7.png";
+import wind_turbine_game8 from "../../public/assets/wind_turbine_game8.png";
+import wind_turbine_game9 from "../../public/assets/wind_turbine_game9.png";
+import wind_turbine_game10 from "../../public/assets/wind_turbine_game10.png";
+import wind_turbine_game11 from "../../public/assets/wind_turbine_game11.png";
+import wind_turbine_game12 from "../../public/assets/wind_turbine_game12.png";
+import wind_turbine_game13 from "../../public/assets/wind_turbine_game13.png";
+import wind_turbine_game14 from "../../public/assets/wind_turbine_game14.png";
+import wind_turbine_game15 from "../../public/assets/wind_turbine_game15.png";
+import wind_turbine_game16 from "../../public/assets/wind_turbine_game16.png";
+import web7 from "../../public/assets/web7.png";
+import web8 from "../../public/assets/web8.png";
+import web9 from "../../public/assets/web9.png";
+import web10 from "../../public/assets/web10.png";
 import Carousel from "@/app/components/Carousel";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Mousewheel} from "swiper/modules";
@@ -280,6 +293,15 @@ export default function HomePage() {
                 {type: 'image', src: wind_turbine_game5},
                 {type: 'image', src: wind_turbine_game6},
                 {type: 'image', src: wind_turbine_game7},
+                {type: 'image', src: wind_turbine_game8},
+                {type: 'image', src: wind_turbine_game9},
+                {type: 'image', src: wind_turbine_game10},
+                {type: 'image', src: wind_turbine_game11},
+                {type: 'image', src: wind_turbine_game12},
+                {type: 'image', src: wind_turbine_game13},
+                {type: 'image', src: wind_turbine_game14},
+                {type: 'image', src: wind_turbine_game15},
+                {type: 'image', src: wind_turbine_game16},
             ]
         },
         simulation_environment: {
@@ -321,6 +343,10 @@ export default function HomePage() {
                 {type: 'image', src: web4},
                 {type: 'image', src: web5},
                 {type: 'image', src: web6},
+                {type: 'image', src: web7},
+                {type: 'image', src: web8},
+                {type: 'image', src: web9},
+                {type: 'image', src: web10},
             ]
         },
         // { type: "video", src: video1 },
