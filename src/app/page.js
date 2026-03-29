@@ -23,11 +23,6 @@ import osc2 from "../../public/OSC/IMG_6592.jpg";
 import osc3 from "../../public/OSC/IMG_6593.jpg";
 import osc4 from "../../public/OSC/IMG_6594.jpg";
 import osc5 from "../../public/OSC/IMG_6589.jpg";
-import photo1 from "../../public/assets/web.png";
-import photo2 from "../../public/assets/infrastructure.png";
-import photo3 from "../../public/assets/studios.png";
-import photo4 from "../../public/assets/vr.png";
-import photo5 from "../../public/assets/systems.png";
 import virtual_studio1 from "../../public/assets/virtual_studio1.jpg";
 import virtual_studio2 from "../../public/assets/virtual_studio2.jpg";
 import virtual_studio3 from "../../public/assets/virtual_studio3.jpeg";
@@ -49,6 +44,13 @@ import web3 from "../../public/assets/web3.png";
 import web4 from "../../public/assets/web4.png";
 import web5 from "../../public/assets/web5.png";
 import web6 from "../../public/assets/web6.png";
+import wind_turbine_game1 from "../../public/assets/wind_turbine_game1.png";
+import wind_turbine_game2 from "../../public/assets/wind_turbine_game2.png";
+import wind_turbine_game3 from "../../public/assets/wind_turbine_game3.png";
+import wind_turbine_game4 from "../../public/assets/wind_turbine_game4.png";
+import wind_turbine_game5 from "../../public/assets/wind_turbine_game5.png";
+import wind_turbine_game6 from "../../public/assets/wind_turbine_game6.png";
+import wind_turbine_game7 from "../../public/assets/wind_turbine_game7.png";
 import Carousel from "@/app/components/Carousel";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Mousewheel} from "swiper/modules";
@@ -271,11 +273,13 @@ export default function HomePage() {
         wind_turbine_game: {
             interval: 5000,
             slides: [
-                {type: 'image', src: photo1},
-                {type: 'image', src: photo2},
-                {type: 'image', src: photo3},
-                {type: 'image', src: photo4},
-                {type: 'image', src: photo5},
+                {type: 'image', src: wind_turbine_game1},
+                {type: 'image', src: wind_turbine_game2},
+                {type: 'image', src: wind_turbine_game3},
+                {type: 'image', src: wind_turbine_game4},
+                {type: 'image', src: wind_turbine_game5},
+                {type: 'image', src: wind_turbine_game6},
+                {type: 'image', src: wind_turbine_game7},
             ]
         },
         simulation_environment: {
