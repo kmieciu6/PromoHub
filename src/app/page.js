@@ -15,9 +15,7 @@ import cosmos9 from "../../public/cosmos/Wenus 02.png";
 import cosmos10 from "../../public/cosmos/Ziemia 09.png";
 import deep_locust1 from "../../public/assets/deep_locust1.png";
 import deep_locust2 from "../../public/assets/deep_locust2.png";
-import deep_locust3 from "../../public/assets/deep_locust3.jpg";
-import deep_locust4 from "../../public/assets/deep_locust4.jpg";
-import deep_locust5 from "../../public/assets/deep_locust5.png";
+import deep_locust3 from "../../public/assets/deep_locust3.png";
 import osc1 from "../../public/OSC/OSC02.jpg";
 import osc2 from "../../public/OSC/IMG_6592.jpg";
 import osc3 from "../../public/OSC/IMG_6593.jpg";
@@ -33,6 +31,10 @@ import virtual_studio7 from "../../public/assets/virtual_studio7.jpg";
 import virtual_studio8 from "../../public/assets/virtual_studio8.jpg";
 import virtual_studio9 from "../../public/assets/virtual_studio9.jpg";
 import virtual_studio10 from "../../public/assets/virtual_studio10.jpg";
+import virtual_studio11 from "../../public/assets/virtual_studio11.jpg";
+import virtual_studio12 from "../../public/assets/virtual_studio12.jpg";
+import virtual_studio13 from "../../public/assets/virtual_studio13.png";
+import virtual_studio14 from "../../public/assets/virtual_studio14.png";
 import wampir1 from "../../public/assets/wampir1.png";
 import wampir2 from "../../public/assets/wampir2.png";
 import wampir3 from "../../public/assets/wampir3.png";
@@ -44,26 +46,16 @@ import web3 from "../../public/assets/web3.png";
 import web4 from "../../public/assets/web4.png";
 import web5 from "../../public/assets/web5.png";
 import web6 from "../../public/assets/web6.png";
+import web7 from "../../public/assets/web7.png";
+import web8 from "../../public/assets/web8.png";
+import web9 from "../../public/assets/web9.png";
+import web10 from "../../public/assets/web10.png";
 import wind_turbine_game1 from "../../public/assets/wind_turbine_game1.png";
 import wind_turbine_game2 from "../../public/assets/wind_turbine_game2.png";
 import wind_turbine_game3 from "../../public/assets/wind_turbine_game3.png";
 import wind_turbine_game4 from "../../public/assets/wind_turbine_game4.png";
 import wind_turbine_game5 from "../../public/assets/wind_turbine_game5.png";
 import wind_turbine_game6 from "../../public/assets/wind_turbine_game6.png";
-import wind_turbine_game7 from "../../public/assets/wind_turbine_game7.png";
-import wind_turbine_game8 from "../../public/assets/wind_turbine_game8.png";
-import wind_turbine_game9 from "../../public/assets/wind_turbine_game9.png";
-import wind_turbine_game10 from "../../public/assets/wind_turbine_game10.png";
-import wind_turbine_game11 from "../../public/assets/wind_turbine_game11.png";
-import wind_turbine_game12 from "../../public/assets/wind_turbine_game12.png";
-import wind_turbine_game13 from "../../public/assets/wind_turbine_game13.png";
-import wind_turbine_game14 from "../../public/assets/wind_turbine_game14.png";
-import wind_turbine_game15 from "../../public/assets/wind_turbine_game15.png";
-import wind_turbine_game16 from "../../public/assets/wind_turbine_game16.png";
-import web7 from "../../public/assets/web7.png";
-import web8 from "../../public/assets/web8.png";
-import web9 from "../../public/assets/web9.png";
-import web10 from "../../public/assets/web10.png";
 import Carousel from "@/app/components/Carousel";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Mousewheel} from "swiper/modules";
@@ -281,6 +273,10 @@ export default function HomePage() {
                 {type: 'image', src: virtual_studio8},
                 {type: 'image', src: virtual_studio9},
                 {type: 'image', src: virtual_studio10},
+                {type: 'image', src: virtual_studio11},
+                {type: 'image', src: virtual_studio12},
+                {type: 'image', src: virtual_studio13},
+                {type: 'image', src: virtual_studio14},
             ]
         },
         wind_turbine_game: {
@@ -292,16 +288,6 @@ export default function HomePage() {
                 {type: 'image', src: wind_turbine_game4},
                 {type: 'image', src: wind_turbine_game5},
                 {type: 'image', src: wind_turbine_game6},
-                {type: 'image', src: wind_turbine_game7},
-                {type: 'image', src: wind_turbine_game8},
-                {type: 'image', src: wind_turbine_game9},
-                {type: 'image', src: wind_turbine_game10},
-                {type: 'image', src: wind_turbine_game11},
-                {type: 'image', src: wind_turbine_game12},
-                {type: 'image', src: wind_turbine_game13},
-                {type: 'image', src: wind_turbine_game14},
-                {type: 'image', src: wind_turbine_game15},
-                {type: 'image', src: wind_turbine_game16},
             ]
         },
         simulation_environment: {
@@ -330,8 +316,6 @@ export default function HomePage() {
                 {type: 'image', src: deep_locust1},
                 {type: 'image', src: deep_locust2},
                 {type: 'image', src: deep_locust3},
-                {type: 'image', src: deep_locust4},
-                {type: 'image', src: deep_locust5},
             ]
         },
         web_applications: {
