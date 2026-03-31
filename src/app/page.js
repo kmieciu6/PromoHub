@@ -23,7 +23,7 @@ import osc4 from "../../public/OSC/IMG_6594.jpg";
 import osc5 from "../../public/OSC/IMG_6589.jpg";
 import virtual_studio1 from "../../public/assets/virtual_studio1.jpg";
 import virtual_studio2 from "../../public/assets/virtual_studio2.jpg";
-import virtual_studio3 from "../../public/assets/virtual_studio3.jpeg";
+import virtual_studio3 from "../../public/assets/virtual_studio3.jpg";
 import virtual_studio4 from "../../public/assets/virtual_studio4.jpg";
 import virtual_studio5 from "../../public/assets/virtual_studio5.jpg";
 import virtual_studio6 from "../../public/assets/virtual_studio6.jpg";
@@ -32,9 +32,8 @@ import virtual_studio8 from "../../public/assets/virtual_studio8.jpg";
 import virtual_studio9 from "../../public/assets/virtual_studio9.jpg";
 import virtual_studio10 from "../../public/assets/virtual_studio10.jpg";
 import virtual_studio11 from "../../public/assets/virtual_studio11.jpg";
-import virtual_studio12 from "../../public/assets/virtual_studio12.jpg";
+import virtual_studio12 from "../../public/assets/virtual_studio12.png";
 import virtual_studio13 from "../../public/assets/virtual_studio13.png";
-import virtual_studio14 from "../../public/assets/virtual_studio14.png";
 import wampir1 from "../../public/assets/wampir1.png";
 import wampir2 from "../../public/assets/wampir2.png";
 import wampir3 from "../../public/assets/wampir3.png";
@@ -276,7 +275,6 @@ export default function HomePage() {
                 {type: 'image', src: virtual_studio11},
                 {type: 'image', src: virtual_studio12},
                 {type: 'image', src: virtual_studio13},
-                {type: 'image', src: virtual_studio14},
             ]
         },
         wind_turbine_game: {
